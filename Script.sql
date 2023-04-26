@@ -2,13 +2,13 @@
 -- #    SCHEMA    #
 -- ################
 
-CREATE SCHEMA credencial;
+CREATE SCHEMA zone;
 
 -- ################
 -- #  SEQUENCES   #
 -- ################
 
-CREATE SEQUENCE credencial.usuario_seq
+CREATE SEQUENCE zone.usuario_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
@@ -16,194 +16,145 @@ CREATE SEQUENCE credencial.usuario_seq
   CACHE 1;
 
 
---CREATE SEQUENCE credencial.pessoa_seq
---  INCREMENT 1
---  MINVALUE 1
---  MAXVALUE 9223372036854775807
---  START 1
---  CACHE 1;
-
-CREATE SEQUENCE credencial.tipo_solicitacao_seq
+CREATE SEQUENCE zone.cartao_credito_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
 
-CREATE SEQUENCE credencial.status_seq
+CREATE SEQUENCE zone.ticket_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
 
-CREATE SEQUENCE credencial.documento_seq
+CREATE SEQUENCE zone.marca_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
 
-CREATE SEQUENCE credencial.tipo_solicitacao_documento_seq
+CREATE SEQUENCE zone.veiculo_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
 
-CREATE SEQUENCE credencial.solicitacao_seq
+CREATE SEQUENCE zone.compra_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
 
-CREATE SEQUENCE credencial.solicitacao_documento_seq
+CREATE SEQUENCE zone.usuario_veiculo_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
 
-CREATE SEQUENCE credencial.solicitacao_historico_seq
+CREATE SEQUENCE zone.estacionamento_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
   CACHE 1;
 
-  -- ################
+-- ################
 -- #    TABLES    #
 -- ################
 
-CREATE TABLE credencial.tb_usuario_usu (
-	id_usuario_usu integer NOT NULL DEFAULT nextval('credencial.usuario_seq'::regclass),
+CREATE TABLE zone.tb_usuario_usu (
+	id_usuario_usu integer NOT NULL DEFAULT nextval('zone.usuario_seq'::regclass),
 	txt_nome_usu varchar(200) NOT NULL,
 	txt_email_usu varchar(200) NOT NULL,
   txt_cpf_usu varchar(11) NOT NULL,
 	CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario_usu)
 );
 
---CREATE TABLE credencial.tb_pessoa_pes (
---	id_pessoa_pes integer NOT NULL DEFAULT nextval('credencial.pessoa_seq'::regclass),
---	txt_nome_pes varchar(50) NOT NULL,
---  txt_cpf_pes varchar(11) NOT NULL,
---  dat_nascimento_pes date NOT NULL,
---	dat_inicio_pes timestamp without time zone NOT NULL,
---	dat_fim_pes timestamp without time zone,
---	CONSTRAINT pessoa_pkey PRIMARY KEY (id_pessoa_pes)
---);
-
-CREATE TABLE credencial.tb_tipo_solicitacao_tis (
-	id_tipo_solicitacao_tis integer NOT NULL DEFAULT nextval('credencial.tipo_solicitacao_seq'::regclass),
-	txt_tipo_solicitacao_tis varchar(200) NOT NULL,
-  txt_icone_tis varchar(50) NOT NULL,
-  txt_resolucao_tis varchar(50) NOT NULL,
+CREATE TABLE zone.tb_marca_mar (
+	id_marca_mar integer NOT NULL DEFAULT nextval('zone.marca_seq'::regclass),
+	txt_marca_mar varchar(200) NOT NULL,
+  txt_abreviacao_marca_mar varchar(10),
+  img_marca_mar bytea NULL,
 	dat_inicio_tis timestamp without time zone NOT null default now(),
 	dat_fim_tis timestamp without time zone default null,
-	CONSTRAINT tipo_solicitacao_pkey PRIMARY KEY (id_tipo_solicitacao_tis)
+	CONSTRAINT marca_pkey PRIMARY KEY (id_marca_mar)
 );
 
-CREATE TABLE credencial.tb_status_sta (
-	id_status_sta integer NOT NULL DEFAULT nextval('credencial.status_seq'::regclass),
-	txt_status_sta varchar(200) NOT NULL,
-	dat_inicio_sta timestamp without time zone NOT null default now(),
-	dat_fim_sta timestamp without time zone default null,
-	CONSTRAINT status_pkey PRIMARY KEY (id_status_sta)
+CREATE TABLE zone.tb_ticket_tic (
+	id_ticket_tic integer NOT NULL DEFAULT nextval('zone.ticket_seq'::regclass),
+	txt_descricao_tic varchar(200) NOT NULL,
+	dat_inicio_tic timestamp without time zone NOT null default now(),
+	dat_fim_tic timestamp without time zone default null,
+	CONSTRAINT ticket_pkey PRIMARY KEY (id_ticket_tic)
 );
 
-CREATE TABLE credencial.tb_documento_doc (
-	id_documento_doc integer NOT NULL DEFAULT nextval('credencial.documento_seq'::regclass),
-  txt_documento_doc varchar(200) NOT NULL,
-	dat_inicio_doc timestamp without time zone NOT null default now(),
-	dat_fim_doc timestamp without time zone default null,
-	CONSTRAINT documento_pkey PRIMARY KEY (id_documento_doc)
+CREATE TABLE zone.tb_veiculo_vei (
+	id_veiculo_vei integer NOT NULL DEFAULT nextval('zone.veiculo_seq'::regclass),
+  id_marca_vei integer NOT NULL,
+  txt_veiculo_vei varchar(200) NOT NULL,
+  img_veiculo_vei bytea NULL,
+	dat_inicio_vei timestamp without time zone NOT null default now(),
+	dat_fim_vei timestamp without time zone default null,
+	CONSTRAINT veiculo_pkey PRIMARY KEY (id_veiculo_vei)
 );
+ALTER TABLE zone.tb_veiculo_vei ADD CONSTRAINT marca_fkey FOREIGN KEY (id_marca_vei) REFERENCES zone.tb_marca_mar (id_marca_mar);
 
-CREATE TABLE credencial.tb_tipo_solicitacao_documento_tsd (
-	id_tipo_solicitacao_documento_tsd integer NOT NULL DEFAULT nextval('credencial.tipo_solicitacao_documento_seq'::regclass),
-  id_tipo_solicitacao_tsd integer NOT NULL,
-  id_documento_tsd integer NOT NULL,
-	dat_inicio_tsd timestamp without time zone NOT null default now(),
-	dat_fim_tsd timestamp without time zone default null,
-	CONSTRAINT tipo_solicitacaodocumento_pkey PRIMARY KEY (id_tipo_solicitacao_documento_tsd)
+CREATE TABLE zone.tb_usuario_veiculo_uve (
+	id_usuario_veiculo_uve integer NOT NULL DEFAULT nextval('zone.usuario_veiculo_seq'::regclass),
+  id_usuario_uve integer NOT NULL,
+  id_veiculo_uve integer NOT NULL,
+  txt_placa_vei varchar(7) NOT NULL,
+	dat_inicio_vei timestamp without time zone NOT null default now(),
+	dat_fim_vei timestamp without time zone default null,
+	CONSTRAINT usuario_veiculo_pkey PRIMARY KEY (id_usuario_veiculo_uve)
 );
-ALTER TABLE credencial.tb_tipo_solicitacao_documento_tsd ADD CONSTRAINT tipo_solicitacao_fkey FOREIGN KEY (id_tipo_solicitacao_tsd) REFERENCES credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis);
-ALTER TABLE credencial.tb_tipo_solicitacao_documento_tsd ADD CONSTRAINT documento_fkey FOREIGN KEY (id_documento_tsd) REFERENCES credencial.tb_documento_doc (id_documento_doc);
+ALTER TABLE zone.tb_usuario_veiculo_uve ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_uve) REFERENCES zone.tb_usuario_usu (id_usuario_usu);
+ALTER TABLE zone.tb_usuario_veiculo_uve ADD CONSTRAINT veiculo_fkey FOREIGN KEY (id_veiculo_uve) REFERENCES zone.tb_veiculo_vei (id_veiculo_vei);
 
-CREATE TABLE credencial.tb_solicitacao_sol (
-	id_solicitacao_sol integer NOT NULL DEFAULT nextval('credencial.solicitacao_seq'::regclass),
-  id_tipo_solicitacao_sol integer NOT NULL,
-	txt_protocolo_sol varchar(50) NOT NULL,
-  txt_cpf_sol varchar(11) NOT NULL,
-  txt_nome_sol varchar(200) NOT NULL,
-  txt_email_sol varchar(50) NOT NULL,
-  txt_endereco_sol varchar(200) NOT NULL,
-  txt_whatsapp_sol varchar(15) NOT NULL,
-	CONSTRAINT solicitacao_pkey PRIMARY KEY (id_solicitacao_sol)
+CREATE TABLE zone.tb_cartao_credito_ccr (
+	id_cartao_credito_ccr integer NOT NULL DEFAULT nextval('zone.cartao_credito_seq'::regclass),
+  id_usuario_ccr integer NOT NULL,
+	txt_numero_ccr varchar(16) NOT NULL,
+  txt_nome_ccr varchar(200) NOT NULL,
+  txt_validade_ccr varchar(10) NOT NULL,
+  txt_cvc_ccr varchar(10) NOT NULL,
+  dat_inicio_ccr timestamp without time zone NOT null default now(),
+	dat_fim_ccr timestamp without time zone default null,
+	CONSTRAINT cartao_Credito_pkey PRIMARY KEY (id_cartao_credito_ccr)
 );
-ALTER TABLE credencial.tb_solicitacao_sol ADD CONSTRAINT tipo_solicitacao_fkey FOREIGN KEY (id_tipo_solicitacao_sol) REFERENCES credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis);
+ALTER TABLE zone.tb_cartao_credito_ccr ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_ccr) REFERENCES zone.tb_usuario_usu (id_usuario_usu);
 
-CREATE TABLE credencial.tb_solicitacao_documento_sdo (
-	id_solicitacao_documento_sdo integer NOT NULL DEFAULT nextval('credencial.solicitacao_documento_seq'::regclass),
-  id_solicitacao_sdo integer NOT NULL,
-  id_documento_sdo integer NOT NULL,
-  img_file_sdo bytea NOT NULL,
-  txt_contenttype_sdo varchar(50) NOT NULL,
-  txt_filename_sdo varchar(50) NOT NULL,
-  flg_deferido_sdo boolean default null,
+CREATE TABLE zone.tb_compra_com (
+	id_compra_com integer NOT NULL DEFAULT nextval('zone.compra_seq'::regclass),
+  id_cartao_credito_com integer NOT NULL,
+  id_ticket_com integer NOT NULL,
+  qtd_cartao_com smallint NOT NULL,
 	dat_inicio_sdo timestamp without time zone NOT null default now(),
-	dat_fim_sdo timestamp without time zone default null,
-	CONSTRAINT solicitacao_documento_pkey PRIMARY KEY (id_solicitacao_documento_sdo)
+	CONSTRAINT compra_pkey PRIMARY KEY (id_compra_com)
 );
-ALTER TABLE credencial.tb_solicitacao_documento_sdo ADD CONSTRAINT solicitacao_fkey FOREIGN KEY (id_solicitacao_sdo) REFERENCES credencial.tb_solicitacao_sol (id_solicitacao_sol);
-ALTER TABLE credencial.tb_solicitacao_documento_sdo ADD CONSTRAINT documento_fkey FOREIGN KEY (id_documento_sdo) REFERENCES credencial.tb_documento_doc (id_documento_doc);
+ALTER TABLE zone.tb_compra_com ADD CONSTRAINT cartao_credito_fkey FOREIGN KEY (id_cartao_credito_com) REFERENCES zone.tb_cartao_credito_ccr (id_cartao_credito_ccr);
+ALTER TABLE zone.tb_compra_com ADD CONSTRAINT ticket_fkey FOREIGN KEY (id_ticket_com) REFERENCES zone.tb_ticket_tic (id_ticket_tic);
 
-CREATE TABLE credencial.tb_solicitacao_historico_shi (
-	id_solicitacao_historico_shi integer NOT NULL DEFAULT nextval('credencial.solicitacao_historico_seq'::regclass),
-  id_solicitacao_shi integer NOT NULL,
-  id_status_shi integer NOT NULL,
-  id_usuario_shi integer,
-  txt_observacao_shi varchar(500),
-	dat_inicio_shi timestamp without time zone NOT null default now(),
-	dat_fim_shi timestamp without time zone default null,
-	CONSTRAINT solicitacao_historico_pkey PRIMARY KEY (id_solicitacao_historico_shi)
+CREATE TABLE zone.tb_estacionamento_est (
+	id_estacionamento_est integer NOT NULL DEFAULT nextval('zone.estacionamento_seq'::regclass),
+  id_usuario_veiculo_est integer NOT NULL,
+  id_compra_est integer NOT NULL,
+	dat_inicio_est timestamp without time zone NOT null default now(),
+	CONSTRAINT estacionamento_pkey PRIMARY KEY (id_estacionamento_est)
 );
-ALTER TABLE credencial.tb_solicitacao_historico_shi ADD CONSTRAINT solicitacao_fkey FOREIGN KEY (id_solicitacao_shi) REFERENCES credencial.tb_solicitacao_sol (id_solicitacao_sol);
-ALTER TABLE credencial.tb_solicitacao_historico_shi ADD CONSTRAINT status_fkey FOREIGN KEY (id_status_shi) REFERENCES credencial.tb_status_sta (id_status_sta);
-ALTER TABLE credencial.tb_solicitacao_historico_shi ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_shi) REFERENCES credencial.tb_usuario_usu (id_usuario_usu);
+ALTER TABLE zone.tb_estacionamento_est ADD CONSTRAINT usuario_veiculo_fkey FOREIGN KEY (id_usuario_veiculo_est) REFERENCES zone.tb_usuario_veiculo_uve (id_usuario_veiculo_uve);
+ALTER TABLE zone.tb_estacionamento_est ADD CONSTRAINT compra_fkey FOREIGN KEY (id_compra_est) REFERENCES zone.tb_compra_com (id_compra_com);
 
 
 -- ####################################
 -- #        INSERTS PARA TESTES       #
 -- ####################################
 
-INSERT INTO credencial.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUES('SMTT', 'usergoverno@urbanmob.com', '1111111111');
-
-INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(1,'Aguardando Atendimento', now(), null);
-INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(2,'Em andamento', now(), null);
-INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(3,'Deferido', now(), null);
-INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(4,'Indeferido', now(), null);
-INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(5,'Finalizado', now(), null);
-INSERT INTO credencial.tb_status_sta (id_status_sta, txt_status_sta, dat_inicio_sta, dat_fim_sta) VALUES(6,'Reenviado', now(), null);
-SELECT setval('credencial.status_seq', 6);
-
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(1, 'Deficiente', 'bi bi-person-square', 'CONFORME RESOLUÇÃO Nº 304/08 DO CONTRAN' , now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(2, 'Idoso', 'bi bi-person-plus-fill', 'CONFORME RESOLUÇÃO Nº 303/08 DO CONTRAN', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(3, 'ônibus', 'bi bi-bus-front-fill', 'CONFORME RESOLUÇÃO Nº 303/08 DO CONTRAN', now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_tis (id_tipo_solicitacao_tis, txt_tipo_solicitacao_tis, txt_icone_tis, txt_resolucao_tis, dat_inicio_tis, dat_fim_tis) VALUES(4, 'Táxi', 'bi bi-taxi-front-fill', 'CONFORME RESOLUÇÃO Nº 303/08 DO CONTRAN', now(), null);
-SELECT setval('credencial.tipo_solicitacao_seq', 4);
-
-INSERT INTO credencial.tb_documento_doc(id_documento_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(1, 'RG', now(), null);
-INSERT INTO credencial.tb_documento_doc(id_documento_doc, txt_documento_doc, dat_inicio_doc, dat_fim_doc) VALUES(2, 'CPF', now(), null);
-SELECT setval('credencial.documento_seq', 2);
-
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(1, 1, 1, now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(2, 1, 2, now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(3, 2, 1, now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(4, 2, 2, now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(5, 3, 1, now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(6, 3, 2, now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(7, 4, 1, now(), null);
-INSERT INTO credencial.tb_tipo_solicitacao_documento_tsd (id_tipo_solicitacao_documento_tsd, id_tipo_solicitacao_tsd, id_documento_tsd, dat_inicio_tsd, dat_fim_tsd) VALUES(8, 4, 2, now(), null);
-SELECT setval('credencial.tipo_solicitacao_documento_seq', 8);
+INSERT INTO credencial.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUES('USER ZONE', 'user@urbanzone.com', '1111111111');
