@@ -82,8 +82,8 @@ CREATE TABLE zone.tb_marca_mar (
 	txt_marca_mar varchar(200) NOT NULL,
   txt_abreviacao_marca_mar varchar(10),
   img_marca_mar bytea NULL,
-	dat_inicio_tis timestamp without time zone NOT null default now(),
-	dat_fim_tis timestamp without time zone default null,
+	dat_inicio_mar timestamp without time zone NOT null default now(),
+	dat_fim_mar timestamp without time zone default null,
 	CONSTRAINT marca_pkey PRIMARY KEY (id_marca_mar)
 );
 
