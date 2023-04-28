@@ -11,3 +11,6 @@ class Veiculo(db.Model, UserMixin):
     imgVeiculo = db.Column('img_veiculo_vei', db.LargeBinary, nullable=False)
     datInicio = db.Column('dat_inicio_vei', db.DateTime, nullable=False)
     datFim = db.Column('dat_fim_vei', db.DateTime, nullable=True)
+
+
+    marca = db.relationship("Marca") 

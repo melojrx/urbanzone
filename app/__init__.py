@@ -23,11 +23,11 @@ login_manager.login_message = u"Por favor, realize o login para acessar a págin
 
 from .rotas.loginRout import login_bp
 from .rotas.publicRout import public_bp
-from .rotas.solicitacaoRout import solicitacao_bp
+from .rotas.usuarioVeiculorout import usuarioVeiculo_bp
 from .rotas.send_emailRout import send_email_bp
 
 app.register_blueprint(public_bp)
 app.register_blueprint(login_bp)
-app.register_blueprint(solicitacao_bp)
+app.register_blueprint(usuarioVeiculo_bp)
 app.register_blueprint(send_email_bp)
 # print(list(app.url_map.iter_rules()))
