@@ -1,7 +1,6 @@
 from ..database import db
-from flask_login import UserMixin
 
-class Marca(db.Model, UserMixin):
+class Marca(db.Model):
     __tablename__ = 'tb_marca_mar'
     __table_args__ = {"schema":"zone"}
 

@@ -65,7 +65,7 @@ class loginController:
             user = User.query.filter_by(email=form.email.data).first()
             session["roles"] = 'URBANMOB_GOVERNO'
             login_user(user)
-            return redirect(url_for('solicitacao.prepareSearch')) 
+            return redirect(url_for('usuarioVeiculo.prepareAddv')) 
         else:
              return render_template('login.html', form=form)
         # ------------------------------------------------

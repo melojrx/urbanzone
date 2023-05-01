@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<script type="text/javascript">
+  $(function () {
+    $("#userSearch").autocomplete({
+      source: function (request, response) {
+        $.getJSON("{{url_for('eventoSearch.userAutocomplete')}}", {
+          userSearch: request.term,
+        }, function (data) {
+          response(data.results);
+        });
+      },
+      minLength: 2,
+      select: function (event, ui) {
+        console.log(ui.item.value);
+      }
+    });
+  })
+
+</script>
+
+<main class="container-fluid">
+  
+    <form method="POST" enctype='multipart/form-data' action="{{ url_for('usuarioVeiculo.addVeiculo')}}">
+  
+      <div class="container border mt-4 rounded p-4">
+        <div class="container p-0 mb-1 mt-2">
+          <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-file-earmark-plus"></i> Cadastro de Veículos</strong></h5>
+          <hr class="mt-1">
+        </div>
+        <div class="form-group mb-3 row justify-content-between">
+          <div class="col">
+            {{form.veiculo.label(class_="form-label")}}
+            {{form.veiculo(class_="form-control")}}
+          </div>
+          <div class="col">
+            {{form.placa.label(class_="form-label")}}
+            {{form.placa(class_="form-control")}}
+          </div>  
+        </div>
+        <div class="border-0 text-end justify-content-end">
+            {{ form.submit(class_="btn btn-primary") }}
+        </div>
+      </div>
+      <br>
+      </div>
+  
+    </form>
+  
+  </main>
+
+{% endblock conteudo %}
