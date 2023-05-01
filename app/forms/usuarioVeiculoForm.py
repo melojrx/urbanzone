@@ -6,6 +6,8 @@ class UsuarioVeiculoForm(Form):
     veiculo = StringField(
     'Veículo:',
     render_kw={"placeholder": "pesquise por veículos."},
+    id="veiculoSearch",
+    name="veiculoSearch",
     validators = [
         DataRequired(message='*Campo Requerido'),
         InputRequired(message=('*Campo Requerido'))

@@ -1,5 +1,5 @@
-from ..database import db
 from app.models.marcaModel import Marca
+from ..database import db
 
 class Veiculo(db.Model):
     __tablename__ = 'tb_veiculo_vei'

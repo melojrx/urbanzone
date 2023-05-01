@@ -31,6 +31,7 @@ class solicitacaoController:
 
     @usuarioVeiculo_bp.route('/usuarioVeiculo', methods=['GET'])
     def veiculoAutocomplete():
+        print('aaaaaa')
         veiculoSearch = request.args.get('veiculoSearch')
         listVeiculoAutocomplete = Veiculo.query.filter(User.name.ilike('%' + str(veiculoSearch) + '%')).all()
         results = [row.txtVeiculo for row in listVeiculoAutocomplete]

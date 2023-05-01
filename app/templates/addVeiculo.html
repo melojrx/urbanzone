@@ -3,10 +3,10 @@
 
 <script type="text/javascript">
   $(function () {
-    $("#userSearch").autocomplete({
+    $("#veiculoSearch").autocomplete({
       source: function (request, response) {
-        $.getJSON("{{url_for('eventoSearch.userAutocomplete')}}", {
-          userSearch: request.term,
+        $.getJSON("{{url_for('usuarioVeiculo.veiculoAutocomplete')}}", {
+          veiculoSearch: request.term,
         }, function (data) {
           response(data.results);
         });
@@ -17,7 +17,6 @@
       }
     });
   })
-
 </script>
 
 <main class="container-fluid">

@@ -1,5 +1,5 @@
 from flask import Blueprint
 
-usuarioVeiculo_bp = Blueprint('usuarioveiculo', __name__)
+usuarioVeiculo_bp = Blueprint('usuarioVeiculo', __name__)
 
 from ..controller.usuarioVeiucloController import *
