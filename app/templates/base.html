@@ -62,59 +62,5 @@
         </section>
       </div>
     </div>
-    <!--ChatBot-->
-    <button id="chatbot-icon" class="btn btn-primary"><i class="bi bi-chat-dots-fill"></i></button>
-    <div id="chatbot-container" class='mb-2'>
-      <div id="chatbot-header" class="d-flex justify-content-between align-items-center py-2 px-3">
-        <h6 class="mb-0"><i class="bi bi-robot me-2 md-2 fs-4"></i>UrbanChat</h6>
-        <i id="minimize-icon" class="bi bi-dash fs-4"></i>
-      </div>
-      <div id="chatbox" class="mt-2">
-        <div class="messages"></div>
-      </div>
-      <div class="mb-3">
-        <form id="user-input-form" class="d-flex mt-3">
-          <input id="user-input" type="text" class="form-control" placeholder="Digite sua mensagem..." />
-          <button type="submit" class="btn btn-primary ms-2"><i class="bi bi-arrow-right"></i></button>
-        </form>
-      </div>
-    </div>
-    
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-      function logoutUser() {
-        document.getElementById('logout-btn').click()
-      }
-    </script>
-    <!-- Ativação do botão de esconder a sidebar -->
-    <script>
-      const btnSidebarToggle = document.querySelector('#btn-sidebar-toggle')
-      const sidebar = document.querySelector('.sidebar')
-      const main_base = document.querySelector('.main_base')
-      
-      btnSidebarToggle.addEventListener('click', function () {
-        sidebar.classList.toggle('show')
-      })
-    </script>
-
-    <!-- Ativar carregamento do Loader no Fale Conosco -->
-    <script>
-      const btnEnviar = document.querySelector('#btn-enviar')
-      const btnEnviarLoader = document.querySelector('#btn-enviar-loader')
-      
-      btnEnviar.addEventListener('click', () => {
-        btnEnviarLoader.style.display = 'block'
-        btnEnviar.style.display = 'none'
-      })
-    </script>
-    <!-- Ativar os Tooltips -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-          return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-      });
-    </script>
   </body>
 </html>

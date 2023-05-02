@@ -110,9 +110,9 @@ CREATE TABLE zone.tb_usuario_veiculo_uve (
 	id_usuario_veiculo_uve integer NOT NULL DEFAULT nextval('zone.usuario_veiculo_seq'::regclass),
   id_usuario_uve integer NOT NULL,
   id_veiculo_uve integer NOT NULL,
-  txt_placa_vei varchar(7) NOT NULL,
-	dat_inicio_vei timestamp without time zone NOT null default now(),
-	dat_fim_vei timestamp without time zone default null,
+  txt_placa_uve varchar(7) NOT NULL,
+	dat_inicio_uve timestamp without time zone NOT null default now(),
+	dat_fim_uve timestamp without time zone default null,
 	CONSTRAINT usuario_veiculo_pkey PRIMARY KEY (id_usuario_veiculo_uve)
 );
 ALTER TABLE zone.tb_usuario_veiculo_uve ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_uve) REFERENCES zone.tb_usuario_usu (id_usuario_usu);
@@ -162,3 +162,5 @@ INSERT INTO zone.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUE
 INSERT INTO "zone".tb_marca_mar (txt_marca_mar, txt_abreviacao_marca_mar, img_marca_mar, dat_inicio_mar, dat_fim_mar) VALUES('TOYOTA', 'TOYOTA', NULL, now(), null);
 
 INSERT INTO "zone".tb_veiculo_vei (id_marca_vei, txt_veiculo_vei, img_veiculo_vei, dat_inicio_vei, dat_fim_vei) VALUES(1, 'COROLLA', NULL, now(), NULL);
+INSERT INTO "zone".tb_veiculo_vei (id_marca_vei, txt_veiculo_vei, img_veiculo_vei, dat_inicio_vei, dat_fim_vei) VALUES(1, 'COROLLA CROSS', NULL, now(), NULL);
+INSERT INTO "zone".tb_veiculo_vei (id_marca_vei, txt_veiculo_vei, img_veiculo_vei, dat_inicio_vei, dat_fim_vei) VALUES(1, 'HILUX', NULL, now(), NULL);
