@@ -44,7 +44,7 @@ class solicitacaoController:
                     usuarioVeiculo = UsuarioVeiculoModel(current_user.id, veiculo.id, txtPlaca, datInicio)
                     db.session.add(usuarioVeiculo)
                     db.session.commit()
-                    flash('Evento cadastrado com sucesso', 'sucess')
+                    flash('Veículo cadastrado com sucesso', 'sucess')
                     return redirect(url_for('usuarioVeiculo.prepareAdd'))
 
             except Exception as e:
