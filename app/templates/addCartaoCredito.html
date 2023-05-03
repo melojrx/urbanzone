@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<main class="container-fluid">
+  
+    <form method="POST" action="{{ url_for('cartaoCredito.addCard')}}">
+  
+      <div class="container border mt-4 rounded p-4">
+        <div class="container p-0 mb-1 mt-2">
+          <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-file-earmark-plus"></i> Cadastro de Cartões de Crédito</strong></h5>
+          <hr class="mt-1">
+        </div>
+        <div class="container">
+          {{form.numero.label(class_="form-label")}}
+          {{form.numero(class_="form-control")}}
+        </div> 
+        <div class="container">
+          {{form.nome.label(class_="form-label")}}
+          {{form.nome(class_="form-control")}}
+        </div>       
+        <div class="container">
+          {{form.cvc.label(class_="form-label")}}
+          {{form.cvc(class_="form-control")}}
+        </div>   
+        <div class="container">
+          {{form.mes.label(class_="form-label")}}
+          {{form.mes(class_="form-select")}}
+          {% for error in form.mes.errors %}
+          <div class="important">
+            {{error}}
+          </div>
+          {% endfor %}
+        </div>        
+        <div class="container">
+          {{form.ano.label(class_="form-label")}}
+          {{form.ano(class_="form-select")}}
+          {% for error in form.ano.errors %}
+          <div class="important">
+            {{error}}
+          </div>
+          {% endfor %}
+        </div>
+        <div class="border-0 text-end justify-content-end">
+            {{ form.submit(class_="btn btn-primary") }}
+        </div>
+      </div>
+      <br>
+      </div>
+  
+    </form>
+  
+  </main>
+
+{% endblock conteudo %}

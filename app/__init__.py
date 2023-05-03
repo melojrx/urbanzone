@@ -21,13 +21,18 @@ login_manager = LoginManager(app)
 login_manager.login_view = "login.login"
 login_manager.login_message = u"Por favor, realize o login para acessar a página"
 
+
+from .rotas.cartaoCreditoRout import cartaoCredito_bp
+from .rotas.estacionamentoRout import  estacionamento_bp
 from .rotas.loginRout import login_bp
 from .rotas.publicRout import public_bp
-from .rotas.usuarioVeiculorout import usuarioVeiculo_bp
 from .rotas.send_emailRout import send_email_bp
+from .rotas.usuarioVeiculoRout import usuarioVeiculo_bp
 
-app.register_blueprint(public_bp)
+app.register_blueprint(cartaoCredito_bp)
+app.register_blueprint(estacionamento_bp)
 app.register_blueprint(login_bp)
-app.register_blueprint(usuarioVeiculo_bp)
+app.register_blueprint(public_bp)
 app.register_blueprint(send_email_bp)
+app.register_blueprint(usuarioVeiculo_bp)
 # print(list(app.url_map.iter_rules()))

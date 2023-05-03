@@ -1,7 +1,6 @@
 from ..database import db
-from flask_login import UserMixin
 
-class CartaoCredito(db.Model, UserMixin):
+class Estacionamento(db.Model):
     __tablename__ = 'tb_estacionamento_est'
     __table_args__ = {"schema":"zone"}
 

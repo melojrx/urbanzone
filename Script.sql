@@ -89,7 +89,9 @@ CREATE TABLE zone.tb_marca_mar (
 
 CREATE TABLE zone.tb_ticket_tic (
 	id_ticket_tic integer NOT NULL DEFAULT nextval('zone.ticket_seq'::regclass),
-	txt_descricao_tic varchar(200) NOT NULL,
+	txt_descricao_tic varchar(100) NOT NULL,
+  num_valor_tic real not null,
+  num_horas_tic smallint not null,
 	dat_inicio_tic timestamp without time zone NOT null default now(),
 	dat_fim_tic timestamp without time zone default null,
 	CONSTRAINT ticket_pkey PRIMARY KEY (id_ticket_tic)
@@ -122,9 +124,9 @@ CREATE TABLE zone.tb_cartao_credito_ccr (
 	id_cartao_credito_ccr integer NOT NULL DEFAULT nextval('zone.cartao_credito_seq'::regclass),
   id_usuario_ccr integer NOT NULL,
 	txt_numero_ccr varchar(16) NOT NULL,
-  txt_nome_ccr varchar(200) NOT NULL,
-  txt_validade_ccr varchar(10) NOT NULL,
-  txt_cvc_ccr varchar(10) NOT NULL,
+  txt_nome_ccr varchar(100) NOT NULL,
+  txt_validade_ccr varchar(7) NOT NULL,
+  txt_cvc_ccr varchar(3) NOT NULL,
   dat_inicio_ccr timestamp without time zone NOT null default now(),
 	dat_fim_ccr timestamp without time zone default null,
 	CONSTRAINT cartao_Credito_pkey PRIMARY KEY (id_cartao_credito_ccr)
@@ -164,3 +166,6 @@ INSERT INTO "zone".tb_marca_mar (txt_marca_mar, txt_abreviacao_marca_mar, img_ma
 INSERT INTO "zone".tb_veiculo_vei (id_marca_vei, txt_veiculo_vei, img_veiculo_vei, dat_inicio_vei, dat_fim_vei) VALUES(1, 'COROLLA', NULL, now(), NULL);
 INSERT INTO "zone".tb_veiculo_vei (id_marca_vei, txt_veiculo_vei, img_veiculo_vei, dat_inicio_vei, dat_fim_vei) VALUES(1, 'COROLLA CROSS', NULL, now(), NULL);
 INSERT INTO "zone".tb_veiculo_vei (id_marca_vei, txt_veiculo_vei, img_veiculo_vei, dat_inicio_vei, dat_fim_vei) VALUES(1, 'HILUX', NULL, now(), NULL);
+
+INSERT INTO "zone".tb_ticket_tic (txt_descricao_tic, num_valor_tic, num_horas_tic, dat_inicio_tic, dat_fim_tic) VALUES('ZONE 1h', 1.00, 1, now(), NULL);
+INSERT INTO "zone".tb_ticket_tic (txt_descricao_tic, num_valor_tic, num_horas_tic, dat_inicio_tic, dat_fim_tic) VALUES('ZONE 2h', 1.00, 1, now(), NULL);

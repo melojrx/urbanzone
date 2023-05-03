@@ -2,7 +2,7 @@ from app.models.veiculoModel import Veiculo
 from app.models.userModel import User
 from ..database import db
 
-class UsuarioVeiculoModel(db.Model):
+class UsuarioVeiculo(db.Model):
     __tablename__ = 'tb_usuario_veiculo_uve'
     __table_args__ = {"schema":"zone"}
 
