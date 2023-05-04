@@ -3,11 +3,12 @@
 
 <main class="container-fluid">
 
-  <form method="POST" action="{{ url_for('usuarioVeiculo.addVeiculo')}}">
+  <form method="POST" action="{{ url_for('estacionamento.addPark')}}">
 
     <div class="container border mt-4 rounded p-4">
+
       <div class="container p-0 mb-1 mt-2">
-        <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-file-earmark-plus"></i> Estacionar Veículo</strong>
+        <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-file-earmark-plus"></i> Selecione o Veículo</strong>
         </h5>
         <hr class="mt-1">
       </div>
@@ -20,9 +21,45 @@
         </div>
         {% endfor %}
       </div>
-      <div class="border-0 text-end justify-content-end">
-        {{ form.submit(class_="btn btn-primary") }}
+    </div>
+
+    <br>
+
+    <div class="container p-0 mb-1 mt-2">
+      <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-file-earmark-plus"></i> Pagamento</strong>
+      </h5>
+      <hr class="mt-1">
+    </div>
+    <div class="container">
+      {{form.tickets.label(class_="form-label")}}
+      {{form.tickets(class_="form-select")}}
+      {% for error in form.tickets.errors %}
+      <div class="important">
+        {{error}}
       </div>
+      {% endfor %}
+    </div>
+    <div class="container">
+      {{form.quantidade.label(class_="form-label")}}
+      {{form.quantidade(class_="form-select")}}
+      {% for error in form.quantidade.errors %}
+      <div class="important">
+        {{error}}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="container">
+      {{form.cartoes.label(class_="form-label")}}
+      {{form.cartoes(class_="form-select")}}
+      {% for error in form.cartoes.errors %}
+      <div class="important">
+        {{error}}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="border-0 text-end justify-content-end">
+      {{ form.submit(class_="btn btn-primary") }}
+    </div>
     </div>
     <br>
     </div>
