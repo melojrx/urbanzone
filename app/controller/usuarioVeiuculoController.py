@@ -13,6 +13,19 @@ class solicitacaoController:
 
     @login_required
     @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @usuarioVeiculo_bp.route('/listVeiculo', methods=['GET'])
+    def listVeiculo():
+           
+        try:
+            listUsuarioVeiculo = db.session.query(UsuarioVeiculo).filter(UsuarioVeiculo.datFim.is_(None)).all()
+            return render_template('listUsuarioVeiculo.html', listUsuarioVeiculo=listUsuarioVeiculo)
+            
+        except Exception as e:
+            flash('Erro: {}'.format(e), 'error') 
+            return render_template('listUsuarioVeiculo.html', listUsuarioVeiculo=listUsuarioVeiculo)
+
+    @login_required
+    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
     @usuarioVeiculo_bp.route('/prepareAddVeiculo', methods=['GET'])
     def prepareAddVeiculo():
             
@@ -59,3 +72,20 @@ class solicitacaoController:
         listVeiculoAutocomplete = Veiculo.query.filter(Veiculo.txtVeiculo.ilike('%' + str(veiculoSearch) + '%')).all()
         results = [row.txtVeiculo for row in listVeiculoAutocomplete]
         return jsonify(results=results) 
+   
+
+    @login_required
+    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @usuarioVeiculo_bp.route('/deleteVeiculo/<idVeiculo>', methods=['GET'])
+    def deleteVeiculo(idVeiculo):
+
+            try:
+                  datFim = datetime.datetime.now()
+                  db.session.query(UsuarioVeiculo).filter(UsuarioVeiculo.id==idVeiculo).update({'datFim': datFim})
+                  db.session.commit()
+                  flash('Veículo excluído com sucesso', 'sucess')
+                  return redirect(url_for('usuarioVeiculo.listVeiculo'))
+            except Exception as e:
+                  db.session.rollback();
+                  flash('Erro: {}'.format(e), 'error')
+                  return redirect(url_for('usuarioVeiculo.listVeiculo'))     

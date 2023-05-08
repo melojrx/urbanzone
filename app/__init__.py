@@ -23,12 +23,14 @@ login_manager.login_message = u"Por favor, realize o login para acessar a págin
 
 
 from .rotas.cartaoCreditoRout import cartaoCredito_bp
+from .rotas.compraRout import compra_bp
 from .rotas.estacionamentoRout import  estacionamento_bp
 from .rotas.loginRout import login_bp
 from .rotas.publicRout import public_bp
 from .rotas.send_emailRout import send_email_bp
 from .rotas.usuarioVeiculoRout import usuarioVeiculo_bp
 
+app.register_blueprint(compra_bp)
 app.register_blueprint(cartaoCredito_bp)
 app.register_blueprint(estacionamento_bp)
 app.register_blueprint(login_bp)
