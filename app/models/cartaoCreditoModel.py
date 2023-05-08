@@ -23,3 +23,10 @@ class CartaoCredito(db.Model):
         self.txtValidade = txtValidade
         self.txtCVC = txtCVC
         self.datInicio = datInicio
+
+
+    def get_datFim(self):
+        return self.datFim
+       
+    def set_datFim(self, datFim):
+        self.datFim = datFim

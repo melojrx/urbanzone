@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+
+<main class="container-fluid">
+
+    <div class="table-responsive">
+
+        <div class="border-0 text-end justify-content-end">
+            <button type="button" class="btn btn-primary" onclick="window.location.href='{{url_for('usuarioVeiculo.prepareAddVeiculo')}}';"><i class="bi bi-plus"></i>Cadastrar</button>
+            
+        </div>
+
+        <table class="table table-striped table-hover table-borderless border-bottom">
+            <thead>
+                <tr>
+                    <th>Veículo</th>
+                    <th>Placa</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in listUsuarioVeiculo %}
+                <tr>
+                    <td>{{ row.veiculo.txtVeiculo }}</td>
+                    <td>{{ row.txtPlaca }}</td>
+                    <td>
+                        <a href="{{ url_for('usuarioVeiculo.deleteVeiculo', idVeiculo=row.id) }}"
+                            class="btn btn-link" role="button">
+                            <i class="bi bi-trash-fill"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</main>
+
+{% endblock conteudo %}
