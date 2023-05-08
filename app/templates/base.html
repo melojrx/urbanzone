@@ -1,66 +1,80 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-  {% include 'include.html' %}
+{% include 'include.html' %}
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark">
-      <div class="container-fluid container_nav">
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <button id="btn-sidebar-toggle" class="btn btn-link"><i class="bi bi-list" style="color: white; font-size: 1.5rem;"></i></button>
+<body >
+
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid container_nav">
+      <a class="navbar-brand" href="{{url_for('public.home')}}">
+        <h3 class="urban_logo">URBANZONE</h3>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span
+          class="navbar-toggler-icon"></span></button>
+      <div class="navbar_collapse collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar_menu align-item-center navbar-nav me-auto mt-2">
+          <li class="nav-item_current_user">Bem-vindo, {{ current_user.name.split()[0].capitalize() }}! </li>
+          <a href="{{url_for('estacionamento.preparePark')}}"><li class="nav-item"> <i class="bi bi-car-front fs-2"></i> Estacionar </li></a> 
+          <a href="{{url_for('usuarioVeiculo.listVeiculo')}}"><li class="nav-item"> <i class="bi bi-car-front fs-2"></i> Meus Veículos </li></a>
+          <a href="{{url_for('cartaoCredito.listCard')}}"><li class="nav-item"> <i class="bi bi-credit-card fs-2"></i> Cartões de Crédito </li></a>
+          <a href="{{url_for('compra.listCompra')}}"><li class="nav-item"> <i class="bi bi-bar-chart fs-2"></i> Extrato de compras </li></a>
+          <a href="{{ url_for('login.logout') }}"><li class="nav-item"> <i class="bi bi-box-arrow-in-right fs-2"></i> Sair </li></a>
+        </ul>
+        {% if current_user.is_authenticated %}
+        <div class="navbar_btn_user btn-group ms-auto">
+          <button type="button" class="btn_log_user btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <span class="log_user">
+              <i class="bi bi-person-circle"></i>
+              Olá, {{ current_user.name.split()[0].capitalize() }}
+            </span>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" style="color: black; font-size: 0.9em;" href="{{ url_for('login.logout') }}"
+                id="logout-btn" onclick="logoutUser()"><i class="fa fa-power-off"></i> Sair da conta </a>
             </li>
           </ul>
-
-          {% if current_user.is_authenticated %}
-            <div class="btn-group ms-auto">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <span class="log_user">
-                  <i class="fa fa-user"></i>
-                  {{ current_user.name }}
-                </span>
-              </button>
-              <ul class="dropdown-menu">
-                <li>
-                  <a class="dropdown-item" style="color: black;" href="{{ url_for('login.logout') }}" id="logout-btn" onclick="logoutUser()"><i class="fa fa-power-off"></i> Sair</a>
-                </li>
-              </ul>
-            </div>
-          {% endif %}
         </div>
-      </div>
-    </nav>
-
-    <div class="container-fluid">
-      <div class="row">
-        <section class="sidebar col-md-3 col-lg-3">
-          {% include 'includeLinksEsquerda.html' %}
-        </section>
-
-        <section class="main_base col-md-9 col-lg-9">
-          {% with messages = get_flashed_messages(category_filter = ['sucess']) %}
-            {% if messages %}
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ messages[0] }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            {% endif %}
-          {% endwith %}
-
-          {% with messages = get_flashed_messages(category_filter = ['error']) %}
-            {% if messages %}
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                {{ messages[0] }}.
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            {% endif %}
-          {% endwith %}
-
-          {% block conteudo %}
-
-          {% endblock %}
-        </section>
+        {% endif %}
       </div>
     </div>
-  </body>
+  </nav>
+       
+ 
+  <main class="row">
+    <section class="sidebar col-md-3 col-lg-3">
+      {% include 'includeLinksEsquerda.html' %}
+    </section>
+
+    <section class="main_base col-md-9 col-lg-9">
+      {% with messages = get_flashed_messages(category_filter = ['sucess']) %}
+      {% if messages %}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ messages[0] }}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      {% with messages = get_flashed_messages(category_filter = ['error']) %}
+      {% if messages %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        {{ messages[0] }}.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      {% endif %}
+      {% endwith %}
+
+      {% block conteudo %}
+
+      {% endblock %}
+    </section>
+
+  </main>
+
+
+</body>
+
 </html>
