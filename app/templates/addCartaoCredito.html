@@ -1,11 +1,69 @@
 {% extends 'base.html' %}
 {% block conteudo %}
 
-<main class="container-fluid">
+<div class="container-fluid">
   
     <form method="POST" action="{{ url_for('cartaoCredito.addCard')}}">
   
-      <div class="container border mt-4 rounded p-4">
+      <div class="card mb-3">
+        <div class="row g-0">
+          <div class="col-md-4">
+            <img src="static/img/credit_card.png" class="img-fluid rounded-start" alt="...">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h6 class="card-header mb-2 text-start d-flex align-items-center">
+                <i class="bi bi-credit-card fs-3 me-2"></i>Cadastre seus meios de pagamento
+              </h6>
+              <p class="card-text mb-2">Aqui você cadastra seus meios de pagamento.</p>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  {{form.numero.label(class_="form-label")}}
+                  {{form.numero(class_="form-control")}}
+                </div>
+                <div class="col-md-6">
+                  {{form.nome.label(class_="form-label")}}
+                  {{form.nome(class_="form-control")}}
+                </div>
+              </div>
+              <div class="row mb-2">
+                <div class="col-md-6">
+                  {{form.cvc.label(class_="form-label")}}
+                  {{form.cvc(class_="form-control")}}
+                </div>
+                <div class="col-md-3">
+                  {{form.mes.label(class_="form-label")}}
+                  {{form.mes(class_="form-select")}}
+                  {% for error in form.mes.errors %}
+                  <div class="important">
+                    {{error}}
+                  </div>
+                  {% endfor %}
+                </div>
+                <div class="col-md-3">
+                  {{form.ano.label(class_="form-label")}}
+                  {{form.ano(class_="form-select")}}
+                  {% for error in form.ano.errors %}
+                  <div class="important">
+                    {{error}}
+                  </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+              <button type="button" class="btn btn-danger"
+                onclick="window.location.href='{{url_for('cartaoCredito.listCard')}}';"> Voltar </button>
+              <div>{{ form.submit(class_="btn btn-primary") }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      
+
+
+      <!-- <div class="container border mt-4 rounded p-4">
         <div class="container p-0 mb-1 mt-2">
           <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-file-earmark-plus"></i> Cadastro de Cartões de Crédito</strong></h5>
           <hr class="mt-1">
@@ -46,7 +104,7 @@
         </div>
       </div>
       <br>
-      </div>
+      </div> -->
   
     </form>
   

@@ -1,57 +1,55 @@
 {% extends 'base.html' %}
 {% block conteudo %}
 
-<main class="container-fluid">
+<div class="container-fluid">
 
-    <form method="POST" action="{{ url_for('estacionamento.addPark')}}">
+  <form method="POST" action="{{ url_for('estacionamento.addPark')}}">
 
-        <div class="card mx-auto mt-5" style="max-width: 540px;">
-            <h6 class="card-header mb-2"><i class="bi bi-check-circle fs-3"></i> Dados do Estacionamento
-            </h6>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <tbody>
-                        <tr>
-                            <td>Veículo:</td>
-                            <td>{{estacionamento.usuarioVeiculo.veiculo.txtVeiculo}}</td>
-                        </tr>
-                        <tr>
-                            <td>Ticket:</td>
-                            <td>{{estacionamento.compra.ticket.txtTicket}}</td>
-                        </tr>
-                        <tr>
-                            <td>Quantidade:</td>
-                            <td>{{estacionamento.compra.qtdCartao}}</td>
-                        </tr>
-                        <tr>
-                            <td>Horas:</td>
-                            <td>{{estacionamento.compra.ticket.horaTicket}}</td>
-                        </tr>
-                        <tr>
-                            <td>Valor Pago:</td>
-                            <td>{{estacionamento.compra.qtdCartao * estacionamento.compra.ticket.valorTicket}}</td>
-                        </tr>
-                        <tr>
-                            <td>Tempo Restante:
-                                <input type="hidden" id="tempo" value="{{tempo}}" />
-                            </td>
-                            <td>
-                                <div class="container">
-                                    <h2 id="timer"></h2>
-                                </div>
-                                <div class="alert alert-danger" id="myAlert" role="alert">
-                                    <p>Seu tempo acabou !</p>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <div class="card mx-auto" style="max-width: 540px;">
+        <h6 class="card-header mb-2"><i class="bi bi-check-circle fs-3"></i> Dados do Estacionamento</h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+              <tbody>
+                  <tr>
+                      <td>Veículo:</td>
+                      <td>{{estacionamento.usuarioVeiculo.veiculo.txtVeiculo}}</td>
+                  </tr>
+                  <tr>
+                      <td>Ticket:</td>
+                      <td>{{estacionamento.compra.ticket.txtTicket}}</td>
+                  </tr>
+                  <tr>
+                      <td>Quantidade:</td>
+                      <td>{{estacionamento.compra.qtdCartao}}</td>
+                  </tr>
+                  <tr>
+                      <td>Horas:</td>
+                      <td>{{estacionamento.compra.ticket.horaTicket}}</td>
+                  </tr>
+                  <tr>
+                      <td>Valor Pago:</td>
+                      <td>{{estacionamento.compra.qtdCartao * estacionamento.compra.ticket.valorTicket}}</td>
+                  </tr>
+                  <tr>
+                      <td>Tempo Restante:
+                          <input type="hidden" id="tempo" value="{{tempo}}" />
+                      </td>
+                      <td>
+                          <div class="container">
+                              <h2 id="timer"></h2>
+                          </div>
+                          <div class="alert alert-danger" id="myAlert" role="alert">
+                              <p>Seu tempo acabou !</p>
+                          </div>
+                      </td>
+                  </tr>                
+              </tbody>
+          </table>
         </div>
+    </div>
 
-    </form>
-
-</main>
+  </form>
+</div>
 
 <script>
     // Tempo em segundos
