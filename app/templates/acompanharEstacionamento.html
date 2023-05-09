@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block conteudo %}
 
-<main class="container-fluid">
+<div class="container-fluid">
 
   <form method="POST" action="{{ url_for('estacionamento.addPark')}}">
 
-    <div class="card mx-auto mt-5" style="max-width: 540px;">
-        <h6 class="card-header mb-2"><i class="bi bi-check-circle fs-3"></i> Dados do Estacionamento
-        </h6>
+    <div class="card mx-auto" style="max-width: 540px;">
+        <h6 class="card-header mb-2"><i class="bi bi-check-circle fs-3"></i> Dados do Estacionamento</h6>
         <div class="table-responsive">
           <table class="table table-striped">
               <tbody>
@@ -33,10 +32,11 @@
                   </tr>
               </tbody>
           </table>
+        </div>
     </div>
 
   </form>
 
-</main>
+</div>
 
 {% endblock conteudo %}

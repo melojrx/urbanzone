@@ -19,13 +19,15 @@
   })
 </script>
 
-<main class="container-fluid">
+<div class="container-fluid">
   
     <form method="POST" action="{{ url_for('usuarioVeiculo.addVeiculo')}}">
   
       <div class="card mx-auto" style="max-width: 540px;">
         <div class="card-body">
-          <h6 class="card-header mb-2"><i class="bi bi-car-front fs-3"></i> Cadastro de Veículos </h6>
+          <h6 class="card-header mb-2 text-start d-flex align-items-center">
+            <i class="bi bi-car-front fs-3 me-2"></i> Cadastro de Veículos 
+          </h6>
           <div class="mb-2">
             {{form.veiculo.label(class_="form-label")}}
             {{form.veiculo(class_="form-control")}}
@@ -49,6 +51,6 @@
   
     </form>
   
-  </main>
+</div>
 
 {% endblock conteudo %}

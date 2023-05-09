@@ -186,9 +186,12 @@ body {
 /* Conteúdo principal - Main */
 
 .main_base {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   max-height: 100%;
   width: 80%;
-  background-color: #f8f8f8;
+  background-color: #f0f1f3;
   
 }
 
