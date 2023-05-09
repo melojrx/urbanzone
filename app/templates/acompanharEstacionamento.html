@@ -30,13 +30,66 @@
                       <td>Valor Pago:</td>
                       <td>{{estacionamento.compra.qtdCartao * estacionamento.compra.ticket.valorTicket}}</td>
                   </tr>
+                  <tr>
+                      <td>Tempo Restante:
+                          <input type="hidden" id="tempo" value="{{tempo}}" />
+                      </td>
+                      <td>
+                          <div class="container">
+                              <h2 id="timer"></h2>
+                          </div>
+                          <div class="alert alert-danger" id="myAlert" role="alert">
+                              <p>Seu tempo acabou !</p>
+                          </div>
+                      </td>
+                  </tr>                
               </tbody>
           </table>
         </div>
     </div>
 
   </form>
-
 </div>
+
+<script>
+    // Tempo em segundos
+    var tempo = document.getElementById('tempo').value;
+
+    $('#myAlert').hide();
+
+    function countdown() {
+        // Se o tempo não for zerado
+        if ((tempo - 1) >= -1) {
+            // Pega a parte inteira das horas
+            var hours = Math.floor(tempo / 3600);
+            // Pega a parte inteira dos minutos
+            var minutes = Math.floor((tempo % 3600) / 60);
+            // Calcula os segundos restantes
+            var seconds = tempo % 60;
+
+            // Formata os números menores que dez com zero à esquerda
+            var formattedTime = (hours < 10 ? "0" + hours : hours) + ":" +
+                (minutes < 10 ? "0" + minutes : minutes) + ":" +
+                (seconds < 10 ? "0" + seconds : seconds);
+
+            // Define o valor da contagem regressiva no elemento HTML
+            $("#timer").html(formattedTime);
+
+            // Define que a função será executada novamente em 1000ms = 1 segundo
+            setTimeout(countdown, 1000);
+
+            // Decrementa o tempo
+            tempo--;
+
+            // Quando o contador chegar a zero, exibe uma mensagem
+            if (tempo < 0) {
+                $('#myAlert').show().fadeOut(5000);
+            }
+        }
+    }
+
+    // Chama a função ao carregar a tela
+    countdown();
+</script>
 
 {% endblock conteudo %}
