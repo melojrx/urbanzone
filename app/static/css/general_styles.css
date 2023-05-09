@@ -127,7 +127,7 @@ body {
   background-image: url('../img/barra_lateral.png');
   max-width: 20%;
   max-height: 100%;
-  min-height: 92vh;
+  min-height: 100%;
   background-size: cover;
   background-repeat: no-repeat; 
 }
@@ -152,8 +152,20 @@ body {
   text-decoration: none;
 }
 
+.urban-gov-menu-gov:hover {
+  color: #3a51d5;
+  transition: all .3s;
+  text-decoration: none;
+}
+
 .titulo-menu-gov {
   font-size: 1em;
+}
+
+.titulo-menu-gov:hover {
+  color: #3a51d5;
+  transition: all .3s;
+  text-decoration: none;
 }
 
 .urban-gov-menu-gov i {
@@ -176,7 +188,11 @@ body {
 /* Conteúdo principal - Main */
 
 .main_base {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
   width: 80%;
+  padding: auto;
 }
 
 /* Resposividade main */
@@ -187,3 +203,14 @@ body {
   }
 }
 
+/* Estaciomanento */
+
+.bi-car-front {
+  font-size: 7em;
+}
+
+.card_saldo_h1 {
+  font-size: 6em;
+  font-weight: 600;
+  color: blue;
+}

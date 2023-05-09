@@ -29,9 +29,9 @@ class estacionamentoController:
                 listTicket = Ticket.query.filter(Ticket.datFim.is_(None)).all()
 
                 form.veiculos.choices = [(0, "Selecione...")]+[(row.id, row.veiculo.txtVeiculo) for row in listUsuarioVeiculos]
-                form.cartoes.choices = [(0, "Selecione...")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
-                form.tickets.choices = [(0, "Selecione...")]+[(row.id, str(row.txtTicket) + ' - ' + str(row.horaTicket) + ' Hora - R$' + str(row.valorTicket) + ',00') for row in listTicket]
-                form.quantidade.choices = [(0, "Selecione...")]+[(row, str(row)) for row in list(range(1, 6))]
+                form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
+                form.tickets.choices = [(0, "Selecione o tipo de Ticket")]+[(row.id, str(row.txtTicket) + ' - ' + str(row.horaTicket) + ' Hora - R$' + str(row.valorTicket) + ',00') for row in listTicket]
+                form.quantidade.choices = [(0, "Selecione a quentidade")]+[(row, str(row)) for row in list(range(1, 6))]
 
                 return render_template('estacionamento.html', form=form)
             except Exception as e:
