@@ -22,7 +22,7 @@
           <a href="{{ url_for('login.logout') }}"><li class="nav-item"> <i class="bi bi-box-arrow-in-right fs-2"></i> Sair </li></a>
         </ul>
         {% if current_user.is_authenticated %}
-        <div class="navbar-nav ms-auto">
+        <div class="navbar-nav navitem_saldo ms-auto">
           <a class="nav-link" style="color: lawngreen; font-weight: bold;">
             <i class="fas fa-coins"> </i> Você possui R$ 0,00 </a>
         <div class="navbar_btn_user btn-group ms-auto">

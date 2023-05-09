@@ -85,10 +85,8 @@ body {
 
 }
 
-
 .nav-item_current_user {
-  display: none;
-  
+  display: none; 
 }
 
 /* Resposividade navbar */
