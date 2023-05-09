@@ -52,14 +52,17 @@ class estacionamentoController:
                 quantidade = form.quantidade.data
                 datInicio = datetime.datetime.now()
 
-                compra = Compra(cartao, ticket,quantidade, datInicio)
+                compra = Compra(cartao, ticket, quantidade, datInicio)
                 estacionamento = Estacionamento(usuarioVeiculo, compra, datInicio)
+
+                ticketObj = Ticket.query.filter(Ticket.id == ticket).first()
+                tempo = (ticketObj.horaTicket * quantidade) * 3600
 
                 db.session.add(estacionamento)
                 db.session.commit()
 
                 flash('Estacionamento Realizado com sucesso', 'sucess') 
-                return render_template('acompanharEstacionamento.html', estacionamento=estacionamento)
+                return render_template('acompanharEstacionamento.html', estacionamento=estacionamento, tempo=tempo)
             except Exception as e:
                 db.session.rollback()
                 flash('Erro: {}'.format(e), 'error') 
