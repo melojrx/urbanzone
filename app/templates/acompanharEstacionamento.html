@@ -5,20 +5,34 @@
 
   <form method="POST" action="{{ url_for('estacionamento.addPark')}}">
 
-    <div class="container border mt-4 rounded p-4">
-
-      <div class="container p-0 mb-1 mt-2">
-        <h5 class="titulo-filtra-demandas"><strong><i class="bi bi-file-earmark-plus"></i> Dados do Estacionamento</strong>
-        </h5>
-        <hr class="mt-1">
-      </div>
-      <div class="container">
-          Veículo: {{estacionamento.usuarioVeiculo.veiculo.txtVeiculo}} </br>
-          Ticket: {{estacionamento.compra.ticket.txtTicket}} </br>
-          Quantidade: {{estacionamento.compra.qtdCartao}} </br>
-          Horas: {{estacionamento.compra.ticket.horaTicket}} </br>
-          Valor Pago: {{estacionamento.compra.qtdCartao * estacionamento.compra.ticket.valorTicket}}
-      </div>
+    <div class="card mx-auto mt-5" style="max-width: 540px;">
+        <h6 class="card-header mb-2"><i class="bi bi-check-circle fs-3"></i> Dados do Estacionamento
+        </h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+              <tbody>
+                  <tr>
+                      <td>Veículo:</td>
+                      <td>{{estacionamento.usuarioVeiculo.veiculo.txtVeiculo}}</td>
+                  </tr>
+                  <tr>
+                      <td>Ticket:</td>
+                      <td>{{estacionamento.compra.ticket.txtTicket}}</td>
+                  </tr>
+                  <tr>
+                      <td>Quantidade:</td>
+                      <td>{{estacionamento.compra.qtdCartao}}</td>
+                  </tr>
+                  <tr>
+                      <td>Horas:</td>
+                      <td>{{estacionamento.compra.ticket.horaTicket}}</td>
+                  </tr>
+                  <tr>
+                      <td>Valor Pago:</td>
+                      <td>{{estacionamento.compra.qtdCartao * estacionamento.compra.ticket.valorTicket}}</td>
+                  </tr>
+              </tbody>
+          </table>
     </div>
 
   </form>
