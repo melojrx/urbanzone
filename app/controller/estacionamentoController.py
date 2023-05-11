@@ -61,7 +61,7 @@ class estacionamentoController:
                 db.session.add(estacionamento)
                 db.session.commit()
 
-                flash('Estacionamento Realizado com sucesso', 'sucess') 
+                #flash('Estacionamento Realizado com sucesso', 'sucess') 
                 return render_template('acompanharEstacionamento.html', estacionamento=estacionamento, tempo=tempo)
             except Exception as e:
                 db.session.rollback()
