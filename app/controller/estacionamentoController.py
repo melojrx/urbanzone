@@ -1,6 +1,6 @@
 from operator import and_
 import datetime
-from flask import flash, render_template, request
+from flask import flash, render_template, request, session
 from flask_login import current_user, login_required
 
 from ..database import db
@@ -12,6 +12,7 @@ from app.models.compraModel import Compra
 from app.models.estacionamentoModel import Estacionamento
 from app.models.ticketModel import Ticket
 from app.rotas.estacionamentoRout import estacionamento_bp
+from app.utils.currencyUtils import CurrencyUtils
 
 
 class estacionamentoController:
@@ -27,6 +28,14 @@ class estacionamentoController:
                 listUsuarioVeiculos = UsuarioVeiculo.query.filter(and_(UsuarioVeiculo.idUsuario == current_user.id , UsuarioVeiculo.datFim.is_(None))).all()
                 listCartaoCredito = CartaoCredito.query.filter(CartaoCredito.datFim.is_(None)).all()
                 listTicket = Ticket.query.filter(Ticket.datFim.is_(None)).all()
+
+                # LEFT JOIN NESSE SQLALCHEMY FRACO
+                listCompras = db.session.query(Compra).outerjoin(Estacionamento, Compra.id == Estacionamento.idCompra).filter(Estacionamento.id.is_(None)).all()
+
+                # print('LEFTLEFTLEFTLEFTLEFTLEFTLEFTLEFT', sum([row.ticket.valorTicket for row in listCompras]))
+
+                session["creditos"] = CurrencyUtils.getStringValue(sum([row.ticket.valorTicket for row in listCompras]))
+                
 
                 form.veiculos.choices = [(0, "Selecione...")]+[(row.id, row.veiculo.txtVeiculo) for row in listUsuarioVeiculos]
                 form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]

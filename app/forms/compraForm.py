@@ -12,7 +12,8 @@ class CompraForm(Form):
     ])
 
     tickets = RadioField(
-        'Tickets:', 
+        'Tickets:',
+        coerce=int,
         validators = [
             DataRequired(message='*Campo Requerido'),
             InputRequired(message=('*Campo Requerido'))

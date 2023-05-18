@@ -1,5 +1,4 @@
 import datetime
-import locale
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
 
@@ -11,6 +10,7 @@ from app.controller.roleRequired import roles_required
 from app.models.ticketModel import Ticket
 from app.models.compraModel import Compra
 from app.rotas.compraRout import compra_bp
+from app.utils.currencyUtils import CurrencyUtils
 
 
 class compraController:
@@ -26,14 +26,14 @@ class compraController:
          try:
 
             form = CompraForm(request.form)
-            locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+            
 
             listTicket = Ticket.query.filter( Ticket.datFim.is_(None)).all()
             listCartaoCredito = CartaoCredito.query.filter(CartaoCredito.datFim.is_(None)).all()
 
             form.quantidade.choices = [(0, "Selecione...e")]+[(row, str(row)) for row in list(range(1, 11))]
             form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
-            form.tickets.choices = [(row.id, str(row.txtTicket) + ' - ' +  str(row.horaTicket) + 'H - ' + str(locale.currency(row.valorTicket, grouping=True, symbol=None))) for row in listTicket]
+            form.tickets.choices = [(row.id, str(row.txtTicket) + ' - ' +  str(row.horaTicket) + 'H - ' + CurrencyUtils.getStringValue(row.valorTicket)) for row in listTicket]
 
             return render_template('comprarCartao.html', form=form)
             
@@ -43,17 +43,27 @@ class compraController:
 
    @login_required
    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
-   @compra_bp.route('/buyCard', methods=['GET'])
+   @compra_bp.route('/buyCard', methods=['GET','POST'])
    def buyCard():
          
          try:
 
             form = CompraForm(request.form)
 
+            idCartao = form.cartoes.data
+            idTicket = form.tickets.data
+            quantidade = form.quantidade.data
+            datInicio = datetime.datetime.now()
  
-            return render_template('comprarCartao.html')
+            compra = Compra(idCartao, idTicket, quantidade, datInicio)
+            db.session.add(compra)
+            db.session.commit()
+
+            flash('Crédito comprado com sucesso', 'sucess') 
+            return redirect(url_for('estacionamento.preparePark'))
             
          except Exception as e:
+               db.session.rollback()
                flash('Erro: {}'.format(e), 'error') 
                return render_template('comprarCartao.html')
 

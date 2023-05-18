@@ -24,7 +24,7 @@
         {% if current_user.is_authenticated %}
         <div class="navbar-nav navitem_saldo ms-auto">
           <a class="nav-link" style="color: lawngreen; font-weight: bold;">
-            <i class="fas fa-coins"> </i> Você possui R$ 0,00 </a>
+            <i class="fas fa-coins"> </i> Você possui {{session["creditos"]}} </a>
         <div class="navbar_btn_user btn-group ms-auto">
           <button type="button" class="btn_log_user btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"
             aria-expanded="false">
