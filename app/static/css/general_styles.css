@@ -217,3 +217,57 @@ body {
 .card {
   border: #BFBFBF solid 1px;
 }
+
+/* Contador */
+
+.custom-loader {
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  animation: p1 4s infinite;
+}
+
+.contador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes p1 {
+  0% {
+    background: conic-gradient(#766DF4 0, #0000 0)
+  }
+
+  12.5% {
+    background: conic-gradient(#766DF4 45deg, #0000 46deg)
+  }
+
+  25% {
+    background: conic-gradient(#766DF4 90deg, #0000 91deg)
+  }
+
+  37.5% {
+    background: conic-gradient(#766DF4 135deg, #0000 136deg)
+  }
+
+  50% {
+    background: conic-gradient(#766DF4 180deg, #0000 181deg)
+  }
+
+  62.5% {
+    background: conic-gradient(#766DF4 225deg, #0000 226deg)
+  }
+
+  75% {
+    background: conic-gradient(#766DF4 270deg, #0000 271deg)
+  }
+
+  87.5% {
+    background: conic-gradient(#766DF4 315deg, #0000 316deg)
+  }
+
+  100% {
+    background: conic-gradient(#766DF4 360deg, #0000 360deg)
+  }
+}
