@@ -2,15 +2,14 @@
 {% block conteudo %}
 
 <div class="container-fluid">
- 
     <div class="card">
-
         <div class="card-body">
-            <h6 class="card-header mb-2"><i class="bi bi-credit-card fs-3"></i> Gerencie seus Cartões de Crédito </h6>
+            <h6 class="card-header mb-2"><i class="bi bi-credit-card fs-3"></i> Gerencie seus Cartões de Crédito</h6>
             <p class="card-text mb-2">Aqui você gerencia seus meios de pagamento.</p>
             <div class="table-responsive">
-                <table class="table table-striped table-hover table-bordered border-bottom">
+                <table class="table table-striped table-hover table-bordered border-bottom empty-table">
                     <thead class="table-primary">
+                        {% if listCartaoCredito %}
                         <tr>
                             <th class="text-left">Nome</th>
                             <th class="text-left">Número</th>
@@ -20,20 +19,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for row in listCartaoCredito %}
-                        <tr>
-                            <td>{{ row.txtNome }}</td>
-                            <td>{{ row.txtNumero }}</td>
-                            <td>{{ row.txtValidade }}</td>
-                            <td>{{ row.txtCVC }}</td>
-                            <td>
-                                <a href="{{ url_for('cartaoCredito.deleteCreditCard', idCartaoCredito=row.id) }}"
-                                    class="btn btn-danger btn-sm" role="button">
-                                    <i class="bi bi-trash-fill"></i>
-                                </a>
-                            </td>
-                        </tr>
-                        {% endfor %}
+                  
+                            {% for row in listCartaoCredito %}
+                            <tr>
+                                <td>{{ row.txtNome }}</td>
+                                <td>{{ row.txtNumero }}</td>
+                                <td>{{ row.txtValidade }}</td>
+                                <td>{{ row.txtCVC }}</td>
+                                <td>
+                                    <a href="{{ url_for('cartaoCredito.deleteCreditCard', idCartaoCredito=row.id) }}"
+                                        class="btn btn-danger btn-sm" role="button">
+                                        <i class="bi bi-trash-fill"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="text-center">Nenhum dado encontrado.</td>
+                            </tr>
+                        {% endif %}
                     </tbody>
                 </table>
             </div>
@@ -41,7 +46,8 @@
         <div class="card-footer d-flex justify-content-end">
             <button type="button" class="btn btn-primary" onclick="window.location.href='{{url_for('cartaoCredito.prepareAddCard')}}';">Cadastrar Novo</button>
         </div>
-
+    </div>
 </div>
+
 
 {% endblock conteudo %}

@@ -274,3 +274,13 @@ body {
     background: conic-gradient(#766DF4 360deg, #0000 360deg)
   }
 }
+
+.empty-table {
+  table-layout: fixed;
+}
+
+.empty-table td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
