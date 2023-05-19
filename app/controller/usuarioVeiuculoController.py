@@ -1,13 +1,13 @@
 from app.models.usuarioVeiculoModel import UsuarioVeiculo
 from ..database import db
 import datetime
-from app.models.userModel import User
+from operator import and_
 from app.models.veiculoModel import Veiculo
 from flask_login import login_required, current_user
 from .roleRequired import  roles_required
 from ..forms.usuarioVeiculoForm import UsuarioVeiculoForm
 from ..rotas.usuarioVeiculoRout import usuarioVeiculo_bp
-from flask import flash, redirect, render_template, request, url_for, Response, jsonify
+from flask import flash, redirect, render_template, request, url_for, jsonify
 
 class solicitacaoController:
 
@@ -17,7 +17,7 @@ class solicitacaoController:
     def listVeiculo():
            
         try:
-            listUsuarioVeiculo = db.session.query(UsuarioVeiculo).filter(UsuarioVeiculo.datFim.is_(None)).all()
+            listUsuarioVeiculo = UsuarioVeiculo.query.filter(and_(UsuarioVeiculo.idUsuario == current_user.id, UsuarioVeiculo.datFim.is_(None))).all()
             return render_template('listUsuarioVeiculo.html', listUsuarioVeiculo=listUsuarioVeiculo)
             
         except Exception as e:
@@ -81,7 +81,7 @@ class solicitacaoController:
 
             try:
                   datFim = datetime.datetime.now()
-                  db.session.query(UsuarioVeiculo).filter(UsuarioVeiculo.id==idVeiculo).update({'datFim': datFim})
+                  UsuarioVeiculo.query.filter(UsuarioVeiculo.id==idVeiculo).update({'datFim': datFim})
                   db.session.commit()
                   flash('Veículo excluído com sucesso', 'sucess')
                   return redirect(url_for('usuarioVeiculo.listVeiculo'))

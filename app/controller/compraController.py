@@ -1,6 +1,7 @@
 import datetime
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
+from operator import and_
 
 from app.forms.compraForm import CompraForm
 from app.models.cartaoCreditoModel import CartaoCredito
@@ -29,7 +30,7 @@ class compraController:
             
 
             listTicket = Ticket.query.filter( Ticket.datFim.is_(None)).all()
-            listCartaoCredito = CartaoCredito.query.filter(CartaoCredito.datFim.is_(None)).all()
+            listCartaoCredito = CartaoCredito.query.filter(and_(CartaoCredito.idUsuario == current_user.id , CartaoCredito.datFim.is_(None))).all()
 
             form.quantidade.choices = [(0, "Selecione...e")]+[(row, str(row)) for row in list(range(1, 11))]
             form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
@@ -75,7 +76,7 @@ class compraController:
          page = request.args.get('page', 1, type=int)
 
          try:
-            listCompra= db.session.query(Compra).paginate(page=page, per_page=ROWS_PER_PAGE)
+            listCompra= Compra.query.join(CartaoCredito).filter(CartaoCredito.idUsuario == current_user.id).paginate(page=page, per_page=ROWS_PER_PAGE)
             return render_template('listCompra.html', listCompra=listCompra)
             
          except Exception as e:

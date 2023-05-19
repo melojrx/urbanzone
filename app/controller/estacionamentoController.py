@@ -26,11 +26,10 @@ class estacionamentoController:
                 form =  EstacionamentoForm(request.form)
 
                 listUsuarioVeiculos = UsuarioVeiculo.query.filter(and_(UsuarioVeiculo.idUsuario == current_user.id , UsuarioVeiculo.datFim.is_(None))).all()
-                listCartaoCredito = CartaoCredito.query.filter(CartaoCredito.datFim.is_(None)).all()
+                listCartaoCredito = CartaoCredito.query.filter(and_(CartaoCredito.idUsuario == current_user.id , CartaoCredito.datFim.is_(None))).all()
                 listTicket = Ticket.query.filter(Ticket.datFim.is_(None)).all()
-
                 # LEFT JOIN NESSE SQLALCHEMY FRACO
-                listCompras = db.session.query(Compra).outerjoin(Estacionamento, Compra.id == Estacionamento.idCompra).filter(Estacionamento.id.is_(None)).all()
+                listCompras = Compra.query.join(CartaoCredito).outerjoin(Estacionamento, Compra.id == Estacionamento.idCompra).filter(and_(CartaoCredito.idUsuario == current_user.id, Estacionamento.id.is_(None))).all()
 
                 # print('LEFTLEFTLEFTLEFTLEFTLEFTLEFTLEFT', sum([row.ticket.valorTicket for row in listCompras]))
 

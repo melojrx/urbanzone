@@ -1,7 +1,7 @@
 import datetime
 from flask import flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required
-from sqlalchemy import update
+from operator import and_
 
 from ..database import db
 from app.controller.roleRequired import roles_required
@@ -18,7 +18,7 @@ class cartaoCreditoController:
    def listCard():
            
            try:
-              listCartaoCredito = db.session.query(CartaoCredito).filter(CartaoCredito.datFim.is_(None)).all()
+              listCartaoCredito = CartaoCredito.query.filter(and_(CartaoCredito.idUsuario == current_user.id , CartaoCredito.datFim.is_(None))).all()
               return render_template('listCartaoCredito.html', listCartaoCredito=listCartaoCredito)
             
            except Exception as e:
@@ -77,7 +77,7 @@ class cartaoCreditoController:
 
             try:
                   datFim = datetime.datetime.now()
-                  db.session.query(CartaoCredito).filter(CartaoCredito.id==idCartaoCredito).update({'datFim': datFim})
+                  CartaoCredito.query.filter(CartaoCredito.id==idCartaoCredito).update({'datFim': datFim})
                   db.session.commit()
                   flash('Cartão de Crédito excluído com sucesso', 'sucess')
                   return redirect(url_for('cartaoCredito.listCard'))
