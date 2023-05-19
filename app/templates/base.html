@@ -19,6 +19,7 @@
           <a href="{{url_for('usuarioVeiculo.listVeiculo')}}"><li class="nav-item"> <i class="bi bi-car-front-fill fs-2"></i> Meus Veículos </li></a>
           <a href="{{url_for('cartaoCredito.listCard')}}"><li class="nav-item"> <i class="bi bi-credit-card fs-2"></i> Cartões de Crédito </li></a>
           <a href="{{url_for('compra.listCompra')}}"><li class="nav-item"> <i class="bi bi-bar-chart fs-2"></i> Extrato de compras </li></a>
+          <a href="{{url_for('compra.prepareBuyCard')}}"><li class="nav-item"> <i class="bi bi-cart4 fs-2"></i> Comprar créditos </li></a>
           <a href="{{ url_for('login.logout') }}"><li class="nav-item"> <i class="bi bi-box-arrow-in-right fs-2"></i> Sair </li></a>
         </ul>
         {% if current_user.is_authenticated %}
