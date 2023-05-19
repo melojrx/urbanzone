@@ -38,7 +38,8 @@ class estacionamentoController:
 
                 form.veiculos.choices = [(0, "Selecione...")]+[(row.id, row.veiculo.txtVeiculo) for row in listUsuarioVeiculos]
                 form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
-                form.tickets.choices = [(0, "Selecione o tipo de Ticket")]+[(row.id, str(row.txtTicket) + ' - ' + str(row.horaTicket) + ' Hora - R$' + str(row.valorTicket) + ',00') for row in listTicket]
+                form.tickets.choices = [(0, "Selecione o tipo de Ticket")] + [(row.id,"{0} - {1} Hora - R$ {2:,.2f}".format(row.txtTicket, row.horaTicket, row.valorTicket).replace(".", ",")) for row in listTicket]
+                #form.tickets.choices = [(0, "Selecione o tipo de Ticket")]+[(row.id, str(row.txtTicket) + ' - ' + str(row.horaTicket) + ' Hora - R$' + str(row.valorTicket) + ',00') for row in listTicket]
                 form.quantidade.choices = [(0, "Selecione a quantidade")]+[(row, str(row)) for row in list(range(1, 6))]
 
                 return render_template('estacionamento.html', form=form)
