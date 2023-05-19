@@ -31,7 +31,7 @@ class compraController:
             listTicket = Ticket.query.filter( Ticket.datFim.is_(None)).all()
             listCartaoCredito = CartaoCredito.query.filter(CartaoCredito.datFim.is_(None)).all()
 
-            form.quantidade.choices = [(0, "Selecione...e")]+[(row, str(row)) for row in list(range(1, 11))]
+            form.quantidade.choices = [(0, "Selecione...")]+[(row, str(row)) for row in list(range(1, 11))]
             form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
             form.tickets.choices = [(row.id, str(row.txtTicket) + ' - ' +  str(row.horaTicket) + 'H - ' + CurrencyUtils.getStringValue(row.valorTicket)) for row in listTicket]
 
