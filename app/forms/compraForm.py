@@ -27,4 +27,4 @@ class CompraForm(Form):
             InputRequired(message=('*Campo Requerido'))
     ]) 
 
-    submit = SubmitField('Estacionar')
+    submit = SubmitField('Comprar')
