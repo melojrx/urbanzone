@@ -5,6 +5,7 @@ from operator import and_
 
 from app.forms.compraForm import CompraForm
 from app.models.cartaoCreditoModel import CartaoCredito
+from app.models.marcaModel import Marca
 
 from ..database import db
 from app.controller.roleRequired import roles_required
@@ -82,3 +83,31 @@ class compraController:
          except Exception as e:
                flash('Erro: {}'.format(e), 'error') 
                return render_template('listCompra.html', listCompra=listCompra)
+         
+
+
+   @compra_bp.route('/addMarca', methods=['GET'])
+   def addMarca(): 
+      import csv
+      try:      
+
+         FILEPATH = r'C:/Desenvolvimento/workspace tiger/urbanzone/app/static/x.csv'
+         data = datetime.datetime.now()
+
+         with open(FILEPATH, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+            marca = None
+            for row in lines:
+               id = row.split(';')[0].strip('\ufeff')
+               txtMarca = row.split(';')[1].strip('\n')
+               marca = Marca(int(id), txtMarca, None, None, data, None)
+               db.session.add(marca)
+               db.session.commit()
+
+         flash('Marcas Importadas com Sucesso', 'Sucess')
+         return redirect(url_for('estacionamento.preparePark'))
+      
+      except Exception as e:
+         db.session.rollback()
+         flash('Erro: {}'.format(e), 'error') 
+         return redirect(url_for('estacionamento.preparePark'))

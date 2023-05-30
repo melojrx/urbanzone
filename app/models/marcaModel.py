@@ -10,3 +10,13 @@ class Marca(db.Model):
     imgMarca = db.Column('img_marca_mar', db.LargeBinary, nullable=False)
     datInicio = db.Column('dat_inicio_mar', db.DateTime, nullable=False)
     datFim = db.Column('dat_fim_mar', db.DateTime, nullable=True)
+
+
+    def __init__(self, id, txtMarca, txtAbreviacao, imgMarca, datInicio, datFim):
+        self.id = id
+        self.txtMarca = txtMarca
+        self.txtAbreviacao = txtAbreviacao
+        self.imgMarca = imgMarca
+        self.datInicio = datInicio
+        self.datFim = datFim
+
