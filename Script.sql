@@ -159,7 +159,7 @@ ALTER TABLE zone.tb_estacionamento_est ADD CONSTRAINT compra_fkey FOREIGN KEY (i
 -- #        INSERTS PARA TESTES       #
 -- ####################################
 
-INSERT INTO zone.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUES('USER ZONE', 'user@urbanzone.com', '1111111111');
+INSERT INTO zone.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUES('Usuário', 'user@urbanzone.com.br', '1111111111');
 
 INSERT INTO "zone".tb_marca_mar (txt_marca_mar, txt_abreviacao_marca_mar, img_marca_mar, dat_inicio_mar, dat_fim_mar) VALUES('TOYOTA', 'TOYOTA', NULL, now(), null);
 
