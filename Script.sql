@@ -8,12 +8,12 @@ CREATE SCHEMA zone;
 -- #  SEQUENCES   #
 -- ################
 
-CREATE SEQUENCE zone.usuario_seq
+/* CREATE SEQUENCE zone.usuario_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
-  CACHE 1;
+  CACHE 1; */
 
 
 CREATE SEQUENCE zone.cartao_credito_seq
@@ -51,12 +51,12 @@ CREATE SEQUENCE zone.compra_seq
   START 1
   CACHE 1;
 
-CREATE SEQUENCE zone.usuario_veiculo_seq
+/* CREATE SEQUENCE zone.usuario_veiculo_seq
   INCREMENT 1
   MINVALUE 1
   MAXVALUE 9223372036854775807
   START 1
-  CACHE 1;
+  CACHE 1; */
 
 CREATE SEQUENCE zone.estacionamento_seq
   INCREMENT 1
@@ -69,13 +69,13 @@ CREATE SEQUENCE zone.estacionamento_seq
 -- #    TABLES    #
 -- ################
 
-CREATE TABLE zone.tb_usuario_usu (
+/* CREATE TABLE zone.tb_usuario_usu (
 	id_usuario_usu integer NOT NULL DEFAULT nextval('zone.usuario_seq'::regclass),
 	txt_nome_usu varchar(200) NOT NULL,
 	txt_email_usu varchar(200) NOT NULL,
   txt_cpf_usu varchar(11) NOT NULL,
 	CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario_usu)
-);
+); */
 
 CREATE TABLE zone.tb_marca_mar (
 	id_marca_mar integer NOT NULL DEFAULT nextval('zone.marca_seq'::regclass),
@@ -117,7 +117,7 @@ CREATE TABLE zone.tb_usuario_veiculo_uve (
 	dat_fim_uve timestamp without time zone default null,
 	CONSTRAINT usuario_veiculo_pkey PRIMARY KEY (id_usuario_veiculo_uve)
 );
-ALTER TABLE zone.tb_usuario_veiculo_uve ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_uve) REFERENCES zone.tb_usuario_usu (id_usuario_usu);
+ALTER TABLE zone.tb_usuario_veiculo_uve ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_uve) REFERENCES comum.tb_usuario_usu (id_usuario_usu);
 ALTER TABLE zone.tb_usuario_veiculo_uve ADD CONSTRAINT veiculo_fkey FOREIGN KEY (id_veiculo_uve) REFERENCES zone.tb_veiculo_vei (id_veiculo_vei);
 
 CREATE TABLE zone.tb_cartao_credito_ccr (
@@ -131,7 +131,7 @@ CREATE TABLE zone.tb_cartao_credito_ccr (
 	dat_fim_ccr timestamp without time zone default null,
 	CONSTRAINT cartao_Credito_pkey PRIMARY KEY (id_cartao_credito_ccr)
 );
-ALTER TABLE zone.tb_cartao_credito_ccr ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_ccr) REFERENCES zone.tb_usuario_usu (id_usuario_usu);
+ALTER TABLE zone.tb_cartao_credito_ccr ADD CONSTRAINT usuario_fkey FOREIGN KEY (id_usuario_ccr) REFERENCES comum.tb_usuario_usu (id_usuario_usu);
 
 CREATE TABLE zone.tb_compra_com (
 	id_compra_com integer NOT NULL DEFAULT nextval('zone.compra_seq'::regclass),
@@ -158,8 +158,6 @@ ALTER TABLE zone.tb_estacionamento_est ADD CONSTRAINT compra_fkey FOREIGN KEY (i
 -- ####################################
 -- #        INSERTS PARA TESTES       #
 -- ####################################
-
-INSERT INTO zone.tb_usuario_usu (txt_nome_usu, txt_email_usu, txt_cpf_usu) VALUES('Usuário', 'user@urbanzone.com.br', '1111111111');
 
 INSERT INTO "zone".tb_marca_mar (txt_marca_mar, txt_abreviacao_marca_mar, img_marca_mar, dat_inicio_mar, dat_fim_mar) VALUES('TOYOTA', 'TOYOTA', NULL, now(), null);
 

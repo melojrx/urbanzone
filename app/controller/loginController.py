@@ -11,9 +11,9 @@ import requests
 class loginController:
 
     global app_key 
-    app_key = '15b1fac5baa876d624e6a7ea70b80d0ec89b5fa99558f275016e651e'
+    app_key = '834cd124afcaa16787f0175290ec47e1d2e7a19599c9e4716e25f3c2'
     global institution_external_id
-    institution_external_id = '5a88f1a9cbcbccc6da0d942db89b78b7353802fb07d54a74061a3a06'
+    institution_external_id = 'cff955b7939ec690e6b63d82ffca69de1a45184b292e9792d8aa709f'
 
     @login_bp.route('/register', methods=['GET', 'POST'])
     def register():
@@ -37,7 +37,7 @@ class loginController:
                 user = User(name, email, txtcpf, pwd)
                 db.session.add(user)
                 
-                url = 'http://10.82.85.8:8080/api/caa/user/role'
+                url = 'http://10.82.85.8:8080/api/b2in/user/role'
                 data = {'institution_external_id': institution_external_id, 'email': email, 'password': pwd, "application_external_id": app_key, "role_name": "URBANMOB_USER", 'type': 'USER'}
                 headers = {'Content-Type': 'application/json'}
                 response = requests.post(url, json=data, headers=headers)
@@ -78,7 +78,7 @@ class loginController:
 
             try:
 
-                url = 'http://10.82.85.8:8080/api/caa/auth'
+                url = 'http://10.82.85.8:8080/api/b2in/user/role'
                 data = {'email': email, 'password': pwd, 'app_key': app_key, 'type': 'WEB'}
                 headers = {'Content-Type': 'application/json'}
                 response = requests.post(url, json=data, headers=headers)
