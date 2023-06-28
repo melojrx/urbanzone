@@ -26,7 +26,7 @@ class cartaoCreditoController:
                return render_template('listCartaoCredito.html', listCartaoCredito=listCartaoCredito)
 
    @login_required
-   @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+   @roles_required('URBANZON_USER')
    @cartaoCredito_bp.route('/prepareAddCard', methods=['GET'])
    def prepareAddCard():
             
@@ -44,7 +44,7 @@ class cartaoCreditoController:
                return render_template('addCartaoCredito.html', form=form)
             
    @login_required
-   @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+   @roles_required('URBANZON_USER')
    @cartaoCredito_bp.route('/addCard', methods=['GET', 'POST'])
    def addCard():
             
@@ -71,7 +71,7 @@ class cartaoCreditoController:
                return render_template('addCartaoCredito.html', form=form)
 
    @login_required
-   @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+   @roles_required('URBANZON_USER')
    @cartaoCredito_bp.route('/deleteCreditCard/<idCartaoCredito>', methods=['GET'])
    def deleteCreditCard(idCartaoCredito):
 

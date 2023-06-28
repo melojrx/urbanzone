@@ -18,7 +18,7 @@ from app.utils.currencyUtils import CurrencyUtils
 class estacionamentoController:
 
     @login_required
-    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @roles_required('URBANZON_USER')
     @estacionamento_bp.route('/preparePark', methods=['GET'])
     def preparePark():
             
@@ -48,7 +48,7 @@ class estacionamentoController:
                 return render_template('estacionamento.html', form=form)
             
     @login_required
-    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @roles_required('URBANZON_USER')
     @estacionamento_bp.route('/addPark', methods=['GET', 'POST'])
     def addPark():
             

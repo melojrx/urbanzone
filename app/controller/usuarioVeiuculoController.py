@@ -12,7 +12,7 @@ from flask import flash, redirect, render_template, request, url_for, jsonify
 class solicitacaoController:
 
     @login_required
-    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @roles_required('URBANZON_USER')
     @usuarioVeiculo_bp.route('/listVeiculo', methods=['GET'])
     def listVeiculo():
            
@@ -25,7 +25,7 @@ class solicitacaoController:
             return render_template('listUsuarioVeiculo.html', listUsuarioVeiculo=listUsuarioVeiculo)
 
     @login_required
-    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @roles_required('URBANZON_USER')
     @usuarioVeiculo_bp.route('/prepareAddVeiculo', methods=['GET'])
     def prepareAddVeiculo():
             
@@ -38,7 +38,7 @@ class solicitacaoController:
             return render_template('addVeiculo.html', form=form)
 
     @login_required
-    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @roles_required('URBANZON_USER')
     @usuarioVeiculo_bp.route('/addVeiculo', methods=['GET', 'POST'])
     def addVeiculo():
             try:
@@ -75,7 +75,7 @@ class solicitacaoController:
    
 
     @login_required
-    @roles_required('URBANMOB_ADMIN, URBANMOB_GOVERNO')
+    @roles_required('URBANZON_USER')
     @usuarioVeiculo_bp.route('/deleteVeiculo/<idVeiculo>', methods=['GET'])
     def deleteVeiculo(idVeiculo):
 

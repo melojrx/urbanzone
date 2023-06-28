@@ -11,7 +11,7 @@ import requests
 class loginController:
 
     global app_key 
-    app_key = '834cd124afcaa16787f0175290ec47e1d2e7a19599c9e4716e25f3c2'
+    app_key = 'f979f66810361d80f03cc64835d1b45013096609942c5a9c6e4e89c6'
     global institution_external_id
     institution_external_id = 'cff955b7939ec690e6b63d82ffca69de1a45184b292e9792d8aa709f'
 
