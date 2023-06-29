@@ -78,7 +78,7 @@ class loginController:
 
             try:
 
-                url = 'http://10.82.85.8:8080/api/b2in/user/role'
+                url = 'http://10.82.85.8:8080/api/b2in/auth'
                 data = {'email': email, 'password': pwd, 'app_key': app_key, 'type': 'WEB'}
                 headers = {'Content-Type': 'application/json'}
                 response = requests.post(url, json=data, headers=headers)
@@ -86,20 +86,20 @@ class loginController:
                 #print(response.status_code)
 
                 if(response.status_code == 200):
-
-                    user = User.query.filter_by(email=email).first()
+                    
+                    user = User.query.filter(User.email == email).first()
                     #user.roles = data['roles']
-
                     #print(data['roles'])
 
                     session["roles"] = data['roles']
                     login_user(user)
-                    return redirect(url_for('solicitacao.prepareSearch')) 
+                    return redirect(url_for('estacionamento.preparePark')) 
                 else:
                     flash('Erro: {}. {}'.format(response.status_code, data['message']), 'error') 
                     return render_template('login.html', form=form)
             except Exception as e:
                 flash('Erro: {}'.format(e), 'error')             
+                return render_template('login.html', form=form)
         else:
             return render_template('login.html', form=form)
             

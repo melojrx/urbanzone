@@ -4,10 +4,10 @@ from flask_mail import Mail
 from whitenoise import WhiteNoise
 
 app = Flask(__name__)
-app.wsgi_app = WhiteNoise(app.wsgi_app, root='static/', prefix='static/')
+app.wsgi_app = WhiteNoise(app.wsgi_app, root='app/static/', prefix='static/')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #app.debug = True
-# app.config['SQLALCHEMY_ECHO'] = True
+#app.config['SQLALCHEMY_ECHO'] = True
 
 # Configurações de Email # 
 app.config['MAIL_SERVER']='smtp.googlemail.com'
