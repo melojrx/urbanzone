@@ -14,3 +14,4 @@ Werkzeug==2.2.3
 WTForms==3.0.1
 whitenoise==6.5.0
 validate_docbr==1.10.0
+requests
