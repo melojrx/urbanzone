@@ -7,7 +7,7 @@ class Compra(db.Model):
     __table_args__ = {"schema":"zone"}
 
     id = db.Column('id_compra_com', db.Integer, autoincrement=True, primary_key=True)
-    idCartaoCredito = db.Column('id_cartao_credito_com', db.Integer, db.ForeignKey(CartaoCredito.id), nullable=False)
+    idCartaoCredito = db.Column('id_cartao_credito_com', db.Integer, db.ForeignKey(CartaoCredito.id))
     idTicket = db.Column('id_ticket_com', db.Integer, db.ForeignKey(Ticket.id), nullable=False)
     qtdCartao = db.Column('qtd_cartao_com', db.SmallInteger, nullable=False)
     datInicio = db.Column('dat_inicio_sdo', db.DateTime, nullable=False)

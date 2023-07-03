@@ -61,7 +61,8 @@ class estacionamentoController:
                 quantidade = form.quantidade.data
                 datInicio = datetime.datetime.now()
 
-                compra = Compra(cartao, ticket, quantidade, datInicio)
+                compra = Compra(None, ticket, quantidade, datInicio)
+                # compra = Compra(cartao, ticket, quantidade, datInicio)
                 estacionamento = Estacionamento(usuarioVeiculo, compra, datInicio)
 
                 ticketObj = Ticket.query.filter(Ticket.id == ticket).first()
