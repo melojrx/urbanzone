@@ -32,7 +32,7 @@
       <div class="card-body">
         <h6 class="card-header mb-2"><i class="bi bi-credit-card fs-3"></i> Meio de Pagamento</h6>
         <div class="mb-2">
-          <!-- {{form.tickets.label(class_="form-label")}} -->
+          {{form.tickets.label(class_="form-label")}}
           {{form.tickets(class_="form-select")}}
           {% for error in form.tickets.errors %}
           <div class="important">
@@ -41,7 +41,7 @@
           {% endfor %}
         </div>
         <div class="mb-2">
-          <!-- {{form.quantidade.label(class_="form-label")}} -->
+          {{form.quantidade.label(class_="form-label")}}
           {{form.quantidade(class_="form-select")}}
           {% for error in form.quantidade.errors %}
           <div class="important">
@@ -49,15 +49,15 @@
           </div>
           {% endfor %}
         </div>
-        <div class="mb-2">
-          <!-- {{form.cartoes.label(class_="form-label")}} -->
+        <!-- <div class="mb-2">
+          {{form.cartoes.label(class_="form-label")}}
           {{form.cartoes(class_="form-select")}}
           {% for error in form.cartoes.errors %}
           <div class="important">
             {{error}}
           </div>
           {% endfor %}
-        </div>
+        </div> -->
         <div class="mt-4">
           <div class="d-grid">
           {{ form.submit(class_="btn btn-primary") }}

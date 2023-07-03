@@ -12,7 +12,7 @@
                 <thead class="table-primary">
                     <tr>
                         <th class="text-start">Compra</th>
-                        <th class="text-start">Cartao</th>
+                        <!-- <th class="text-start">Cartao</th> -->
                         <th class="text-start">Ticket</th>
                         <th class="text-start">Valor</th>
                     </tr>
@@ -21,7 +21,7 @@
                     {% for row in listCompra %}
                     <tr>
                         <td>{{ row.datInicio.strftime('%d/%m/%Y %H:%M') }}</td>
-                        <td>{{ row.cartaoCredito.txtNumero }}</td>
+                        <!-- <td>{{ row.cartaoCredito.txtNumero }}</td> -->
                         <td>{{ row.ticket.txtTicket }}</td>
                         <td>{{ row.ticket.valorTicket }}</td>
                     </tr>
