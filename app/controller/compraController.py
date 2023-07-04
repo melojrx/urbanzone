@@ -34,8 +34,8 @@ class compraController:
 
             form.quantidade.choices = [(0, "Selecione...")]+[(row, str(row)) for row in list(range(1, 11))]
             form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
-            form.tickets.choices = [(row.id, str(row.txtTicket) + ' - ' +  str(row.horaTicket) + 'H - ' + CurrencyUtils.getStringValue(row.valorTicket)) for row in listTicket]
-
+            #form.tickets.choices = [(row.id, str(row.txtTicket) + ' - ' +  str(row.horaTicket) + 'H - ' + CurrencyUtils.getStringValue(row.valorTicket)) for row in listTicket]
+            form.tickets.choices = [(row.id, str(row.txtTicket) + ' - ' +  str(row.horaTicket) + 'H - ' + str(row.valorTicket)) for row in listTicket]
             return render_template('comprarCartao.html', form=form)
             
          except Exception as e:
