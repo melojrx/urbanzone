@@ -137,7 +137,7 @@ CREATE TABLE zone.tb_compra_com (
 	id_compra_com integer NOT NULL DEFAULT nextval('zone.compra_seq'::regclass),
   id_cartao_credito_com integer NOT NULL,
   id_ticket_com integer NOT NULL,
-  qtd_cartao_com smallint NOT NULL,
+  qtd_cartao_com smallint NULL,
 	dat_inicio_sdo timestamp without time zone NOT null default now(),
 	CONSTRAINT compra_pkey PRIMARY KEY (id_compra_com)
 );

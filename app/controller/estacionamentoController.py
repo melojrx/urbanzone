@@ -32,8 +32,9 @@ class estacionamentoController:
                 listCompras = Compra.query.join(CartaoCredito).outerjoin(Estacionamento, Compra.id == Estacionamento.idCompra).filter(and_(CartaoCredito.idUsuario == current_user.id, Estacionamento.id.is_(None))).all()
 
                 # print('LEFTLEFTLEFTLEFTLEFTLEFTLEFTLEFT', sum([row.ticket.valorTicket for row in listCompras]))
-
-                session["creditos"] = CurrencyUtils.getStringValue(sum([row.ticket.valorTicket for row in listCompras]))
+                c = sum([row.ticket.valorTicket for row in listCompras])
+                session["creditos"] = str(c)
+                #session["creditos"] = CurrencyUtils.getStringValue(sum([row.ticket.valorTicket for row in listCompras]))
                 
 
                 form.veiculos.choices = [(0, "Selecione...")]+[(row.id, row.veiculo.txtVeiculo) for row in listUsuarioVeiculos]
@@ -61,7 +62,8 @@ class estacionamentoController:
                 quantidade = form.quantidade.data
                 datInicio = datetime.datetime.now()
 
-                compra = Compra(cartao, ticket, quantidade, datInicio)
+                compra = Compra(None, ticket, quantidade, datInicio)
+                # compra = Compra(cartao, ticket, quantidade, datInicio)
                 estacionamento = Estacionamento(usuarioVeiculo, compra, datInicio)
 
                 ticketObj = Ticket.query.filter(Ticket.id == ticket).first()
