@@ -37,7 +37,7 @@ class CartaoCreditoForm(Form):
 
     cvc = StringField(
         'CVC:',
-        render_kw={"placeholder": "Informe o CVC do cartão de crédito."},
+        render_kw={"placeholder": "CVC"},
         validators = [
             InputRequired(message=('*Campo Requerido')),
             Length(max=3, message='A número deve conter %(max)d caracteres')
