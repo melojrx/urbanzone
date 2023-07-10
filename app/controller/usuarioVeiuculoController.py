@@ -54,6 +54,8 @@ class solicitacaoController:
                     flash('Selecione um veículo na pesquisa por nome de veículo', 'error')
                     return redirect(url_for('usuarioVeiculo.prepareAddVeiculo'))
                 else:
+                    txtPlaca = txtPlaca.upper() if txtPlaca and txtPlaca != "" else txtPlaca
+                    print(txtPlaca)
                     usuarioVeiculo = UsuarioVeiculo(current_user.id, veiculo.id, txtPlaca, datInicio)
                     db.session.add(usuarioVeiculo)
                     db.session.commit()

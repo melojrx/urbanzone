@@ -1,7 +1,10 @@
 from operator import and_
 import datetime
-from flask import flash, render_template, request, session
+from flask import flash, render_template, request, session, jsonify
 from flask_login import current_user, login_required
+from app.models.marcaModel import Marca
+
+from app.models.veiculoModel import Veiculo
 
 from ..database import db
 from app.controller.roleRequired import roles_required
@@ -37,7 +40,7 @@ class estacionamentoController:
                 #session["creditos"] = CurrencyUtils.getStringValue(sum([row.ticket.valorTicket for row in listCompras]))
                 
 
-                form.veiculos.choices = [(0, "Selecione...")]+[(row.id, row.veiculo.txtVeiculo) for row in listUsuarioVeiculos]
+                form.veiculos.choices = [(0, "Selecione...")]+[(row.veiculo.id, row.veiculo.txtVeiculo) for row in listUsuarioVeiculos]
                 form.cartoes.choices = [(0, "Selecione seu cartão")]+[(row.id, row.txtNumero) for row in listCartaoCredito]
                 form.tickets.choices = [(0, "Selecione o tipo de Ticket")] + [(row.id,"{0} - {1} Hora - R$ {2:,.2f}".format(row.txtTicket, row.horaTicket, row.valorTicket).replace(".", ",")) for row in listTicket]
                 #form.tickets.choices = [(0, "Selecione o tipo de Ticket")]+[(row.id, str(row.txtTicket) + ' - ' + str(row.horaTicket) + ' Hora - R$' + str(row.valorTicket) + ',00') for row in listTicket]
@@ -56,15 +59,15 @@ class estacionamentoController:
             try:
                 form =  EstacionamentoForm(request.form)
       
-                usuarioVeiculo = form.veiculos.data
+                idVeiculo = form.veiculos.data
                 cartao = form.cartoes.data
                 ticket = form.tickets.data
                 quantidade = form.quantidade.data
                 datInicio = datetime.datetime.now()
 
-                compra = Compra(None, ticket, quantidade, datInicio)
-                # compra = Compra(cartao, ticket, quantidade, datInicio)
-                estacionamento = Estacionamento(usuarioVeiculo, compra, datInicio)
+                usuarioVeiculo = db.session.query(UsuarioVeiculo).join(Veiculo).filter(Veiculo.id == idVeiculo).first()
+                compra = Compra(cartao, ticket, quantidade, datInicio)
+                estacionamento = Estacionamento(usuarioVeiculo.id, compra, datInicio)
 
                 ticketObj = Ticket.query.filter(Ticket.id == ticket).first()
                 tempo = (ticketObj.horaTicket * quantidade) * 3600
@@ -77,4 +80,19 @@ class estacionamentoController:
             except Exception as e:
                 db.session.rollback()
                 flash('Erro: {}'.format(e), 'error') 
-                return render_template('estacionamento.html', form=form)            
+                return render_template('estacionamento.html', form=form)   
+
+
+    @estacionamento_bp.route("/loadVeiculo",methods=["POST","GET"])
+    @login_required
+    @roles_required('URBANZON_USER')
+    def loadVeiculo():
+  
+        try:  
+            if request.method == 'POST':
+                veiculo_id = request.form['id_veiculo']
+                # eventoHistorico = db.session.query(EventoHistorico).join(Evento).filter(and_(Evento.numOcorrencia == num_ocorrencia, EventoHistorico.dataFim.is_(None))).first()
+                usuarioVeiculo = db.session.query(UsuarioVeiculo).join(Veiculo).filter(and_(Veiculo.id == veiculo_id, UsuarioVeiculo.datFim.is_(None))).first()
+            return jsonify({'htmlresponse': render_template('veiculoAjax.html', usuarioVeiculo=usuarioVeiculo)})            
+        except Exception as e:
+             flash('Erro: {}'.format(e), 'error')
