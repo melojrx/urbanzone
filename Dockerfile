@@ -1,6 +1,6 @@
 FROM python:3.8.10
 
-WORKDIR home/ubuntu/maceio-server/urbanZone
+WORKDIR home/ubuntu/maceio-server-cyro/urbanZone
 
 #RUN python -m venv venv
 #ENV PATH="/home/ubuntu/maceio-server/urbanZone/venv/bin:$PATH"
